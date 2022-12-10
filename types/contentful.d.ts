@@ -5,32 +5,28 @@ import { Document } from "@contentful/rich-text-types";
 
 export interface IBlogPostFields {
   /** Cover Image */
-  coverImage: Asset;
+  coverImage?: Asset | undefined;
 
   /** Slug */
-  slug: string;
+  slug?: string | undefined;
 
   /** Title */
-  title: string;
+  title?: string | undefined;
 
-  /** author */
-  author: string;
+  /** Author */
+  author?: string | undefined;
 
-  /** created */
-  created: string;
-
-  /** updated */
-  updated: string;
-
-  /** tags */
-  tags: string[];
+  /** Tags */
+  tags?: ITag[] | undefined;
 
   /** Description */
-  description: string;
+  description?: string | undefined;
 
-  /** body */
-  body: Document;
+  /** Body */
+  body?: Document | undefined;
 }
+
+/** Blog post content model */
 
 export interface IBlogPost extends Entry<IBlogPostFields> {
   sys: {
@@ -41,7 +37,7 @@ export interface IBlogPost extends Entry<IBlogPostFields> {
     locale: string;
     contentType: {
       sys: {
-        id: "blogPost";
+        id: "blog-post";
         linkType: "ContentType";
         type: "Link";
       };
@@ -52,6 +48,9 @@ export interface IBlogPost extends Entry<IBlogPostFields> {
 export interface ICodeBlockFields {
   /** code */
   code?: string | undefined;
+
+  /** language */
+  language?: string | undefined;
 }
 
 export interface ICodeBlock extends Entry<ICodeBlockFields> {
@@ -71,7 +70,34 @@ export interface ICodeBlock extends Entry<ICodeBlockFields> {
   };
 }
 
-export type CONTENT_TYPE = "blogPost" | "codeBlock";
+export interface ITagFields {
+  /** Tag */
+  tag?: string | undefined;
+
+  /** Color */
+  color?: string | undefined;
+}
+
+export interface ITag extends Entry<ITagFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: "tag";
+        linkType: "ContentType";
+        type: "Link";
+      };
+    };
+  };
+}
+
+export type CONTENT_TYPE = "blog-post" | "codeBlock" | "tag";
+
+export type IEntry = IBlogPost | ICodeBlock | ITag;
 
 export type LOCALE_CODE = "en-US";
 

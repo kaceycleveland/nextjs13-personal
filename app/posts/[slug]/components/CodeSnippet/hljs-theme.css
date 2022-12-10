@@ -1,0 +1,66 @@
+pre .hljs-comment {
+  color: theme("colors.sky.500");
+}
+
+pre .hljs-title {
+  color: theme("colors.sky.700");
+}
+
+pre .hljs-variable,
+pre .hljs-attribute,
+pre .hljs-tag,
+pre .hljs-regexp,
+pre .hljs-ruby .constant,
+pre .hljs-xml .tag .title,
+pre .hljs-xml .pi,
+pre .hljs-xml .doctype,
+pre .hljs-html .doctype,
+pre .hljs-css .id,
+pre .hljs-css .class,
+pre .hljs-css .pseudo {
+  color: theme("colors.red.500");
+}
+
+pre .hljs-number,
+pre .hljs-preprocessor,
+pre .hljs-built_in,
+pre .hljs-literal,
+pre .hljs-params,
+pre .hljs-constant {
+  color: theme("colors.yellow.500");
+}
+
+pre .hljs-class,
+pre .hljs-ruby .class .title,
+pre .hljs-css .rules .attribute {
+  color: theme("colors.yellow.400");
+}
+
+pre .hljs-string,
+pre .hljs-value,
+pre .hljs-inheritance,
+pre .hljs-header,
+pre .hljs-ruby .symbol,
+pre .hljs-xml .cdata {
+  color: theme("colors.teal.500");
+}
+
+pre .hljs-css .hexcolor {
+  color: theme("colors.cyan.500");
+}
+
+pre .hljs-function,
+pre .hljs-python .decorator,
+pre .hljs-python .title,
+pre .hljs-ruby .function .title,
+pre .hljs-ruby .title .keyword,
+pre .hljs-perl .sub,
+pre .hljs-javascript .title,
+pre .hljs-coffeescript .title {
+  color: theme("colors.blue.500");
+}
+
+pre .hljs-keyword,
+pre .hljs-javascript .function {
+  color: theme("colors.orange.400");
+}

@@ -29,7 +29,12 @@ export const options: Options = {
         node.nodeType === BLOCKS.EMBEDDED_ENTRY &&
         node.data.target.fields.code
       )
-        return <CodeSnippet markdown={node.data.target.fields.code} />;
+        return (
+          <CodeSnippet
+            code={node.data.target.fields.code}
+            language={node.data.target.fields.language}
+          />
+        );
       return <div>Embeded</div>;
     },
     [BLOCKS.HEADING_1]: (node, children) => {
@@ -89,7 +94,7 @@ export const options: Options = {
         node.nodeType === BLOCKS.EMBEDDED_ENTRY &&
         node.data.target.fields.code
       )
-        return <CodeSnippet markdown={node.data.target.fields.code} />;
+        return <CodeSnippet code={node.data.target.fields.code} />;
       return <div>Embeded</div>;
     },
     // [BLOCKS.HEADING_3]: (node, children) => (

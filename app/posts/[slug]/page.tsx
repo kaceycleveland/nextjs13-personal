@@ -1,5 +1,5 @@
 import { IBlogPostFields } from "types/contentful";
-import { getPostBySlug, getPosts } from "utils/contentful-client";
+import { getPostBySlug, getPosts, getPostSlugs } from "utils/contentful-client";
 import cn from "classnames";
 import { RichTextRender } from "./components/RichTextRender";
 import { Comments } from "./components/Comments";
@@ -12,10 +12,7 @@ interface PostPageProps {
 }
 
 export async function generateStaticParams() {
-  const postSlugs = await getPosts().then((posts) =>
-    posts.map((post) => ({ slug: post.fields.slug }))
-  );
-  return postSlugs;
+  return await getPostSlugs();
 }
 
 export default async function PostPage({ params: { slug } }: PostPageProps) {

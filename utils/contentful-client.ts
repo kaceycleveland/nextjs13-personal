@@ -20,7 +20,17 @@ export const getPosts = async () => {
   return posts.items;
 };
 
-export const getPostBySlug = async (slug: string) => {
+export const getPostSlugs = async () => {
+  const posts = await client.getEntries<Pick<IBlogPostFields, "slug">>({
+    content_type: "blog-post",
+    select: "fields.slug",
+    order: "-sys.createdAt",
+  });
+
+  return posts.items.map((item) => item.fields);
+};
+
+export const getPostBySlug = async (slug?: string) => {
   const post = await client.getEntries<IBlogPostFields>({
     content_type: "blog-post",
     "fields.slug[in]": slug,

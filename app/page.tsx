@@ -1,6 +1,3 @@
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import Head from "next/head";
 import { PostEntryCard } from "./components/PostEntryCard";
 
 import { getPosts } from "utils/contentful-client";
@@ -30,11 +27,7 @@ export default async function Home() {
         </div>
         <div className="mx-auto flex flex-col gap-3 px-8 sm:px-4 sm:max-w-[80%] md:max-w-xl lg:max-w-3xl">
           {posts.map((entry, index) => (
-            <PostEntryCard
-              key={"post-entry-" + index}
-              {...entry.fields}
-              created={entry.sys.createdAt}
-            />
+            <PostEntryCard key={"post-entry-" + index} {...entry} />
           ))}
         </div>
       </div>
