@@ -7,11 +7,7 @@ export default async function preview(
 ) {
   const { secret, slug } = req.query;
 
-  if (
-    secret !== process.env.CONTENTFUL_PREVIEW_SECRET ||
-    !slug ||
-    slug.length
-  ) {
+  if (secret !== process.env.CONTENTFUL_PREVIEW_SECRET || !slug) {
     return res.status(401).json({ message: "Invalid token" });
   }
   // Fetch the headless CMS to check if the provided `slug` exists
