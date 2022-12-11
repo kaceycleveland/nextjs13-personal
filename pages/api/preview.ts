@@ -10,6 +10,10 @@ export default async function preview(
   if (secret !== process.env.CONTENTFUL_PREVIEW_SECRET || !slug) {
     return res.status(401).json({ message: "Invalid token" });
   }
+  console.log(
+    "delivery preview key",
+    process.env.CONTENTFUL_DELIVERY_PREVIEW_API_KEY
+  );
   // Fetch the headless CMS to check if the provided `slug` exists
   const post = await getPostBySlug(
     slug as string,
