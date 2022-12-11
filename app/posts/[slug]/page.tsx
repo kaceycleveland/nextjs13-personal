@@ -1,13 +1,13 @@
 import { IBlogPostFields } from "types/contentful";
-import { getPostBySlug, getPosts, getPostSlugs } from "utils/contentful-client";
+import { getPostBySlug, getPostSlugs } from "utils/contentful-client";
 import cn from "classnames";
 import { RichTextRender } from "./components/RichTextRender";
 import { Comments } from "./components/Comments";
 import { BlogHeader } from "./components/BlogHeader";
 
-import "./styles/prism-theme.css";
+import { previewData } from "next/headers";
 
-interface PostPageProps {
+export interface PostPageProps {
   params: { slug: IBlogPostFields["slug"] };
 }
 
@@ -16,7 +16,8 @@ export async function generateStaticParams() {
 }
 
 export default async function PostPage({ params: { slug } }: PostPageProps) {
-  const post = await getPostBySlug(slug);
+  const preview = previewData();
+  const post = await getPostBySlug(slug, Boolean(preview));
 
   const { title, coverImage, body, author } = post.fields;
 

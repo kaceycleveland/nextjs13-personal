@@ -1,11 +1,10 @@
 import GlobalHead from "app/components/GlobalHead";
-import { IBlogPostFields } from "types/contentful";
+import { getPostBySlug } from "utils/contentful-client";
+import { PostPageProps } from "./page";
 
-export default async function Head({
-  params: { title, description },
-}: {
-  params: IBlogPostFields;
-}) {
+export default async function Head({ params: { slug } }: PostPageProps) {
+  const post = await getPostBySlug(slug);
+  const { title, description } = post.fields;
   return (
     <>
       <title>Kacey Cleveland - {title}</title>
