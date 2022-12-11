@@ -1,7 +1,7 @@
 import { IBlogPostFields } from "types/contentful";
 import { createClient } from "contentful";
 
-const clientCreator = (preview?: string) => {
+const clientCreator = (preview = false) => {
   if (!process.env.CONTENTFUL_SPACE) throw new Error("No Contentful Space");
   if (!process.env.CONTENTFUL_DELIVERY_API_KEY)
     throw new Error("No Contentful Delivery API Key");
@@ -11,7 +11,10 @@ const clientCreator = (preview?: string) => {
   return createClient({
     space: process.env.CONTENTFUL_SPACE,
     environment: process.env.CONTENTFUL_ENVIRONMENT,
-    accessToken: preview ?? process.env.CONTENTFUL_DELIVERY_API_KEY,
+    accessToken: preview
+      ? process.env.CONTENTFUL_DELIVERY_PREVIEW_API_KEY
+      : process.env.CONTENTFUL_DELIVERY_API_KEY,
+    host: preview ? "preview.contentful.com" : "cdn.contentful.com",
   });
 };
 
@@ -36,7 +39,7 @@ export const getPostSlugs = async () => {
   return posts.items.map((item) => item.fields);
 };
 
-export const getPostBySlug = async (slug?: string, preview?: string) => {
+export const getPostBySlug = async (slug?: string, preview = false) => {
   let usedClient = preview ? clientCreator(preview) : client;
   const post = await usedClient.getEntries<IBlogPostFields>({
     content_type: "blog-post",
