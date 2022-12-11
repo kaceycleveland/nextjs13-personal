@@ -16,9 +16,11 @@ export async function generateStaticParams() {
 }
 
 export default async function PostPage({ params: { slug } }: PostPageProps) {
-  const preview = previewData();
+  const preview = Boolean(previewData());
 
-  const post = await getPostBySlug(slug, Boolean(preview));
+  if (preview) console.log("Preview", preview);
+
+  const post = await getPostBySlug(slug, preview);
 
   const { title, coverImage, body, author } = post.fields;
 
