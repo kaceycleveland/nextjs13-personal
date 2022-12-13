@@ -1,7 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getAbsoluteURL } from "utils/utils";
 import chrome from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
+import { launch } from "puppeteer-core";
+
+const getAbsoluteURL = (path: string) => {
+  const baseURL = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
+  return baseURL + path;
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,7 +28,7 @@ export default async function handler(
             ? "/usr/bin/google-chrome"
             : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       };
-  const browser = await puppeteer.launch(options);
+  const browser = await launch(options);
   const page = await browser.newPage();
   await page.setViewport({ width: 1200, height: 630 });
   const relativeUrl = (req.query["path"] as string) || "";
