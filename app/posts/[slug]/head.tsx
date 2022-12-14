@@ -15,12 +15,14 @@ export default async function Head({ params: { slug } }: PostPageProps) {
         property="og:url"
         content={`${process.env.BASE_URL}/posts/${slug}`}
       />
-      <meta
-        property="og:image"
-        content={`${
-          process.env.BASE_URL
-        }/api/posts/og?path=${encodeURIComponent("/posts/" + slug)}`}
-      />
+      {slug && (
+        <meta
+          property="og:image"
+          content={`${
+            process.env.BASE_URL
+          }/api/posts/og?slug=${encodeURIComponent(slug)}`}
+        />
+      )}
       <GlobalHead />
     </>
   );
