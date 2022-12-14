@@ -1,16 +1,36 @@
 import { ImageResponse } from "@vercel/og";
-import { getPostBySlug } from "utils/contentful-client";
 import { NextRequest } from "next/server";
 import { formatDate } from "utils/utils";
+import { createClient } from "contentful";
+import { IBlogPostFields } from "types/contentful";
+import fetchAdapter from "@vespaiach/axios-fetch-adapter";
 
 export const config = {
   runtime: "experimental-edge",
 };
 
+if (!process.env.CONTENTFUL_SPACE) throw new Error("No Contentful Space");
+if (!process.env.CONTENTFUL_DELIVERY_API_KEY)
+  throw new Error("No Contentful Delivery API Key");
+if (!process.env.CONTENTFUL_DELIVERY_PREVIEW_API_KEY)
+  throw new Error("No Contentful Delivery Preview API Key");
+
+const client = createClient({
+  space: process.env.CONTENTFUL_SPACE,
+  environment: process.env.CONTENTFUL_ENVIRONMENT,
+  accessToken: process.env.CONTENTFUL_DELIVERY_API_KEY,
+  adapter: fetchAdapter,
+});
+
 export default async function OpenGraphImage(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug") as string;
-  const { fields, sys } = await getPostBySlug(slug, false, true);
+  const { fields, sys } = await client
+    .getEntries<IBlogPostFields>({
+      content_type: "blog-post",
+      "fields.slug[in]": slug,
+    })
+    .then((resp) => resp.items[0]);
   const { title, coverImage, description, tags } = fields;
   return new ImageResponse(
     (
