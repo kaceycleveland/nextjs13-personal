@@ -1,9 +1,7 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 import { formatDate } from "utils/utils";
-import { createClient } from "contentful";
-import { IBlogPostFields } from "types/contentful";
-import fetchAdapter from "@vespaiach/axios-fetch-adapter";
+import { IBlogPost } from "types/contentful";
 
 export const config = {
   runtime: "experimental-edge",
@@ -15,23 +13,31 @@ if (!process.env.CONTENTFUL_DELIVERY_API_KEY)
 if (!process.env.CONTENTFUL_DELIVERY_PREVIEW_API_KEY)
   throw new Error("No Contentful Delivery Preview API Key");
 
-const client = createClient({
-  space: process.env.CONTENTFUL_SPACE,
-  environment: process.env.CONTENTFUL_ENVIRONMENT,
-  accessToken: process.env.CONTENTFUL_DELIVERY_API_KEY,
-  adapter: fetchAdapter,
-});
+const space = process.env.CONTENTFUL_SPACE;
+const environment = process.env.CONTENTFUL_ENVIRONMENT;
+const accessToken = process.env.CONTENTFUL_DELIVERY_API_KEY;
 
 export default async function OpenGraphImage(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug") as string;
-  const { fields, sys } = await client
-    .getEntries<IBlogPostFields>({
-      content_type: "blog-post",
-      "fields.slug[in]": slug,
+  const data = await fetch(
+    `https://cdn.contentful.com/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=blog-post&fields.slug[in]=${slug}`
+  ).then((response) =>
+    response.json().then((data) => {
+      return data;
     })
-    .then((resp) => resp.items[0]);
-  const { title, coverImage, description, tags } = fields;
+  );
+  const { fields, sys } = data.items[0] as IBlogPost;
+  let { title, coverImage, description, tags } = fields;
+  coverImage = data.includes["Asset"].find(
+    (asset: any) => asset.sys.id === (coverImage as any).sys.id
+  );
+  tags = tags?.map((tag) => {
+    const foundTag = data.includes["Entry"].find(
+      (tagEntry: any) => tagEntry.sys.id === (tag as any).sys.id
+    );
+    return foundTag;
+  });
   return new ImageResponse(
     (
       <div
