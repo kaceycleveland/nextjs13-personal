@@ -20,6 +20,9 @@ const accessToken = process.env.CONTENTFUL_DELIVERY_API_KEY;
 export default async function OpenGraphImage(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const slug = searchParams.get("slug") as string;
+  console.info(
+    `https://cdn.contentful.com/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=blog-post&fields.slug[in]=${slug}`
+  );
   const data = await fetch(
     `https://cdn.contentful.com/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=blog-post&fields.slug[in]=${slug}`
   ).then((response) =>
