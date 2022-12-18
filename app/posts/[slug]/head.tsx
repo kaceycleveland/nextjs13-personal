@@ -1,10 +1,16 @@
 import GlobalHead from "app/components/GlobalHead";
+import { previewData } from "next/headers";
 import { getPostBySlug } from "utils/contentful-client";
 import { PostPageProps } from "./page";
 
 export default async function Head({ params: { slug } }: PostPageProps) {
-  const post = await getPostBySlug(slug);
+  const preview = Boolean(previewData());
+
+  if (preview) console.log("Preview head", preview);
+  const post = await getPostBySlug(slug, preview);
+
   const { title, description } = post.fields;
+
   return (
     <>
       <title>Kacey Cleveland - {title}</title>
