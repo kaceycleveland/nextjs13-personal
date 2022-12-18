@@ -1,8 +1,7 @@
 import { IBlogPostFields } from "types/contentful";
 import { createClient } from "contentful";
-import fetchAdapter from "@vespaiach/axios-fetch-adapter";
 
-const clientCreator = (preview = false, useFetchAdapter = false) => {
+const clientCreator = (preview = false) => {
   if (!process.env.CONTENTFUL_SPACE) throw new Error("No Contentful Space");
   if (!process.env.CONTENTFUL_DELIVERY_API_KEY)
     throw new Error("No Contentful Delivery API Key");
@@ -16,7 +15,6 @@ const clientCreator = (preview = false, useFetchAdapter = false) => {
       ? process.env.CONTENTFUL_DELIVERY_PREVIEW_API_KEY
       : process.env.CONTENTFUL_DELIVERY_API_KEY,
     host: preview ? "preview.contentful.com" : "cdn.contentful.com",
-    adapter: useFetchAdapter ? fetchAdapter : undefined,
   });
 };
 
@@ -41,15 +39,8 @@ export const getPostSlugs = async () => {
   return posts.items.map((item) => item.fields);
 };
 
-export const getPostBySlug = async (
-  slug?: string,
-  preview = false,
-  useFetchAdapter = false
-) => {
+export const getPostBySlug = async (slug?: string, preview = false) => {
   let usedClient = preview ? clientCreator(preview) : client;
-  if (useFetchAdapter) {
-    usedClient = clientCreator(preview, useFetchAdapter);
-  }
   const post = await usedClient.getEntries<IBlogPostFields>({
     content_type: "blog-post",
     "fields.slug[in]": slug,

@@ -1,14 +1,13 @@
 import { NavItemMenu } from "./components/Navigation";
 import { roboto } from "./components/fonts";
 import "./globals.css";
+import { ReactNode } from "react";
 
-// pages/_app.js
+interface RootLayoutProps {
+  children?: ReactNode;
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className="scroll-smooth" lang="en">
       <body className={`bg-gray-50 ${roboto.variable} font-sans`}>
