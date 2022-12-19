@@ -3,11 +3,19 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSelectedLayoutSegments } from "next/navigation";
 import { getGravatar } from "utils/getGravatar";
+import classNames from "classnames";
 
 const avatarUrl = getGravatar("kaceycleveland.mail@gmail.com", 200);
 
+const menuItems = [
+  { title: "Home", url: "/", activeKey: [] },
+  { title: "Posts", url: "/posts", activeKey: ["posts"] },
+];
+
 export const NavItemMenu = () => {
+  const segments = useSelectedLayoutSegments();
   const [animateHeader, setAnimateHeader] = useState(false);
 
   useEffect(() => {
@@ -23,11 +31,6 @@ export const NavItemMenu = () => {
       window.removeEventListener("scroll", listener);
     };
   }, []);
-
-  const menuItems = [
-    { title: "Home", url: "/" },
-    { title: "Posts", url: "/posts" },
-  ];
 
   return (
     <header
@@ -58,16 +61,29 @@ export const NavItemMenu = () => {
           </Link>
           <nav>
             <ul className="flex items-center justify-start">
-              {menuItems?.map((item) => (
-                <li key={item?.title}>
-                  <Link
-                    href={item?.url}
-                    className="text-md border-b-2 border-transparent px-2 py-6 leading-[22px] text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 md:px-3 lg:px-6"
-                  >
-                    {item?.title}
-                  </Link>
-                </li>
-              ))}
+              {menuItems?.map((item) => {
+                // Every segment should match the key for it to be active
+                const isActive =
+                  (segments.length &&
+                    segments.every(
+                      (key, idx) => key === item.activeKey[idx]
+                    )) ||
+                  (item.activeKey.length === 0 && segments.length === 0);
+                console.log(item, segments);
+                return (
+                  <li key={item?.title}>
+                    <Link
+                      href={item?.url}
+                      className={classNames(
+                        { "font-bold": isActive },
+                        "text-md border-b-2 border-transparent px-2 py-6 leading-[22px] text-zinc-700 hover:border-zinc-400 hover:text-zinc-900 md:px-3 lg:px-6"
+                      )}
+                    >
+                      {item?.title}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>

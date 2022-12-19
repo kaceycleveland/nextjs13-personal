@@ -22,8 +22,6 @@ export default async function HyperlinkEntry({
     (domain) => url.hostname.indexOf(domain) >= 0
   );
 
-  console.log(isLocalLink, passedLink);
-
   if (!isOgp) {
     if (isLocalLink) {
       return <Link href={url.pathname}>{children}</Link>;

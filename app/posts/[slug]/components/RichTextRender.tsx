@@ -36,7 +36,6 @@ export const options: Options = {
           />
         );
 
-      console.log(node.data);
       return <div>Embeded</div>;
     },
     [BLOCKS.HEADING_1]: (node, children) => {

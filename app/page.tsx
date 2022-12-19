@@ -23,7 +23,7 @@ export default async function Home() {
       </div>
       <div className="h-full w-full bg-slate-100 py-4">
         <div className="prose mx-auto my-4 text-center">
-          <h2 className="text-slate-500">Posts</h2>
+          <h2 className="text-slate-500">Recent Posts</h2>
         </div>
         <div className="mx-auto flex flex-col gap-3 px-8 sm:px-4 sm:max-w-[80%] md:max-w-xl lg:max-w-3xl">
           {posts.map((entry, index) => (

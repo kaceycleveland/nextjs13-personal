@@ -11,7 +11,6 @@ const md = new MarkdownIt({
 
 const CodeSnippet = ({ code, language }: ICodeBlockFields) => {
   if (!code) return <div />;
-  console.log("language", language);
   return (
     <pre
       className="whitespace-pre w-full overflow-auto font-mono"
