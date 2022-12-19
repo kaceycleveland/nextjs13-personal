@@ -35,6 +35,8 @@ export const options: Options = {
             language={node.data.target.fields.language}
           />
         );
+
+      console.log(node.data);
       return <div>Embeded</div>;
     },
     [BLOCKS.HEADING_1]: (node, children) => {
@@ -91,10 +93,18 @@ export const options: Options = {
     },
     [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
       if (
-        node.nodeType === BLOCKS.EMBEDDED_ENTRY &&
-        node.data.target.fields.code
-      )
-        return <CodeSnippet code={node.data.target.fields.code} />;
+        node.nodeType === BLOCKS.EMBEDDED_ASSET &&
+        node.data.target.fields.file?.contentType === "image/png"
+      ) {
+        return (
+          <Image
+            src={`https:${node.data.target.fields.file.url}`}
+            alt={node.data.target.fields.title}
+            width={node.data.target.fields.file.details.image.width}
+            height={node.data.target.fields.file.details.image.height}
+          />
+        );
+      }
       return <div>Embeded</div>;
     },
     // [BLOCKS.HEADING_3]: (node, children) => (
