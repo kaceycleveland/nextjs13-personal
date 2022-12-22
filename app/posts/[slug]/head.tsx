@@ -11,9 +11,11 @@ export default async function Head({ params: { slug } }: PostPageProps) {
 
   const { title, description } = post.fields;
 
+  const stringTitle = `Kacey Cleveland - ${title}`;
+  console.log(title);
   return (
     <>
-      <title>Kacey Cleveland - {title}</title>
+      <title key="title">{stringTitle}</title>
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:type" content="article" />

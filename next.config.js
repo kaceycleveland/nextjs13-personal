@@ -4,6 +4,7 @@ const nextConfig = {
     domains: ["images.ctfassets.net", "www.gravatar.com", "www.kleveland.dev"],
   },
   productionBrowserSourceMaps: true,
+  reactStrictMode: true,
   swcMinify: true,
   experimental: {
     appDir: true,

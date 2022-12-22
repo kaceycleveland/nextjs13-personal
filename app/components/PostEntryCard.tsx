@@ -4,7 +4,7 @@ import Link from "next/link";
 import cn from "classnames";
 import { formatDate } from "utils/utils";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
-import { IBlogPost, IBlogPostFields } from "types/contentful";
+import { IBlogPostFields } from "types/contentful";
 import { Entry } from "contentful";
 
 export const PostEntryCard = (props: Entry<IBlogPostFields>) => {
