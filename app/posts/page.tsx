@@ -1,14 +1,5 @@
 import { getPosts } from "utils/contentful-client";
-import { formatDate } from "utils/utils";
 import PostEntryCard from "app/components/PostEntryCard";
-const headers = [
-  {
-    label: "Title",
-  },
-  {
-    label: "Created",
-  },
-];
 
 export default async function PostPage() {
   const posts = await getPosts();

@@ -14,17 +14,20 @@ const menuItems = [
   { title: "Posts", url: "/posts", activeKey: ["posts"] },
 ];
 
+const SCROLL_CUTOFF = 140;
+
 export const NavItemMenu = () => {
   const segments = useSelectedLayoutSegments();
   const [animateHeader, setAnimateHeader] = useState(false);
 
   useEffect(() => {
     const listener = () => {
-      if (window.scrollY > 140) {
-        setAnimateHeader(true);
-      } else setAnimateHeader(false);
+      if (window.scrollY < SCROLL_CUTOFF) {
+        setAnimateHeader(false);
+      } else setAnimateHeader(true);
     };
 
+    listener();
     window.addEventListener("scroll", listener);
 
     return () => {
@@ -69,7 +72,7 @@ export const NavItemMenu = () => {
                       (key, idx) => key === item.activeKey[idx]
                     )) ||
                   (item.activeKey.length === 0 && segments.length === 0);
-                console.log(item, segments);
+
                 return (
                   <li key={item?.title}>
                     <Link

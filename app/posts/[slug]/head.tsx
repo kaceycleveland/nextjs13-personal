@@ -12,7 +12,7 @@ export default async function Head({ params: { slug } }: PostPageProps) {
   const { title, description } = post.fields;
 
   const stringTitle = `Kacey Cleveland - ${title}`;
-  console.log(title);
+
   return (
     <>
       <title key="title">{stringTitle}</title>

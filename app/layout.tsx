@@ -2,6 +2,7 @@ import { NavItemMenu } from "./components/Navigation";
 import { roboto } from "./components/fonts";
 import "./globals.css";
 import { ReactNode } from "react";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 interface RootLayoutProps {
   children?: ReactNode;
@@ -10,6 +11,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className="scroll-smooth" lang="en">
+      <ScrollToTop />
       <body className={`bg-gray-50 ${roboto.variable} font-sans`}>
         <div className={"flex h-screen flex-col justify-between"}>
           <NavItemMenu />
