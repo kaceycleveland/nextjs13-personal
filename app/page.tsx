@@ -3,7 +3,6 @@ import { PostEntryCard } from "./components/PostEntryCard";
 import { getPosts } from "utils/contentful-client";
 import { getGithubActivity } from "utils/github-graphql";
 import { GithubActivity } from "./components/GithubActivity";
-import { monoton } from "./components/fonts";
 
 export default async function Home() {
   const posts = await getPosts();
@@ -14,7 +13,7 @@ export default async function Home() {
       <div className="overflow-hidden relative max-w-none pt-12 pb-10 sm:pb-20">
         <div className="relative m-auto flex flex-col-reverse text-4xl md:text-6xl items-center justify-center text-center">
           <h1
-            className={`animate-color-rotate ${monoton.variable} bg-4x bg-gradient-to-r from-orange-600 to-teal-600 bg-cover bg-clip-text bg-left-bottom p-2 text-transparent`}
+            className={`animate-color-rotate font-monoton bg-4x bg-gradient-to-r from-orange-600 to-teal-600 bg-cover bg-clip-text bg-left-bottom p-2 text-transparent`}
           >
             Kacey Cleveland
           </h1>

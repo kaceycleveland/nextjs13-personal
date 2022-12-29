@@ -14,7 +14,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["var(--font-roboto)", ...fontFamily.sans],
-        monoton: ["var(--font-monoton)"],
+        monoton: ["var(--font-monoton)", ...fontFamily.sans],
       },
       animation: {
         "color-rotate": "color-rotate 6s ease infinite",

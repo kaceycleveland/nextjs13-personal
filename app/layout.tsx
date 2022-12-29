@@ -12,7 +12,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className="scroll-smooth" lang="en">
       <ScrollToTop />
-      <body className={`bg-gray-50 ${fonts.roboto.variable} font-sans`}>
+      <body
+        className={`bg-gray-50 ${fonts.roboto.variable} ${fonts.monoton.variable} font-sans`}
+      >
         <div className={"flex h-screen flex-col justify-between"}>
           <NavItemMenu />
           <main className="mx-auto w-full flex-1 pt-28">{children}</main>
