@@ -14,7 +14,7 @@ const menuItems = [
   { title: "Posts", url: "/posts", activeKey: ["posts"] },
 ];
 
-const SCROLL_CUTOFF = 140;
+const SCROLL_CUTOFF = 70;
 
 export const NavItemMenu = () => {
   const segments = useSelectedLayoutSegments();

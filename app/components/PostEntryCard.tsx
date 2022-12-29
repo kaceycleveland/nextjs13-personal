@@ -49,7 +49,7 @@ export const PostEntryCard = (props: Entry<IBlogPostFields>) => {
           <div className={"blog-entry-description col-span-12 md:col-span-10"}>
             <p>
               {description}
-              <span className="flex items-center justify-end md:justify-start group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all">
+              <span className="items-center justify-end hidden md:flex md:justify-start group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all">
                 <span>Read more</span>
                 <ChevronRightIcon className="h-4 w-4 inline-block" />
               </span>
