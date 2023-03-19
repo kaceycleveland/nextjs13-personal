@@ -3,6 +3,7 @@ import * as fonts from "./components/fonts";
 import "./globals.css";
 import { ReactNode } from "react";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { Analytics } from "@vercel/analytics/react";
 
 interface RootLayoutProps {
   children?: ReactNode;
@@ -11,6 +12,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className="scroll-smooth" lang="en">
+      <Analytics />
       <ScrollToTop />
       <body
         className={`bg-gray-50 ${fonts.roboto.variable} ${fonts.monoton.variable} font-sans`}
