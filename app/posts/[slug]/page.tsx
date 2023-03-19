@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: PostPageProps) {
 
 export async function generateStaticParams() {
   const postSlugs = await getPostSlugs();
-  return postSlugs;
+  return postSlugs ?? [];
 }
 
 export default async function PostPage({ params: { slug } }: PostPageProps) {
