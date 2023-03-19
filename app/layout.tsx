@@ -38,12 +38,8 @@ export const metadata = {
   },
   description: "I break, fix, and optimize things.",
   icons: {
-    icon: "/icon.png",
-    shortcut: "/shortcut-icon.png",
-    apple: "/apple-icon.png",
-    other: {
-      rel: "apple-touch-icon-precomposed",
-      url: "/apple-touch-icon-precomposed.png",
-    },
+    icon: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
+    apple: "/appole-touch-icon.png",
   },
 };
