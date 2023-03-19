@@ -1,4 +1,4 @@
-import { Monoton } from "@next/font/google";
+import { Monoton } from "next/font/google";
 
 export const monoton = Monoton({
   variable: "--font-monoton",
