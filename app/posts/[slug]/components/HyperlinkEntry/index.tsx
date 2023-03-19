@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { getOpenGraphData } from "./getOpenGraphData";
-import { LinkBodyInner } from "./LinkBodyInner";
 
 const possibleDomains = ["kleveland.dev"];
 

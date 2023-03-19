@@ -1,7 +1,7 @@
 import { ImageResponse } from "@vercel/og";
-import { NextRequest } from "next/server";
-import { formatDate } from "utils/utils";
 import { IBlogPost } from "types/contentful";
+import { formatDate } from "utils/utils";
+import { PostPageProps } from "../page";
 
 export const config = {
   runtime: "experimental-edge",
@@ -17,9 +17,8 @@ const space = process.env.CONTENTFUL_SPACE;
 const environment = process.env.CONTENTFUL_ENVIRONMENT;
 const accessToken = process.env.CONTENTFUL_DELIVERY_API_KEY;
 
-export default async function OpenGraphImage(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const slug = searchParams.get("slug") as string;
+export async function GET(request: Request, { params }: PostPageProps) {
+  const slug = params.slug;
   console.info(
     `https://cdn.contentful.com/spaces/${space}/environments/${environment}/entries?access_token=${accessToken}&content_type=blog-post&fields.slug[in]=${slug}`
   );
@@ -56,8 +55,12 @@ export default async function OpenGraphImage(req: NextRequest) {
       >
         <div tw="flex w-full h-full bg-slate-100 border-solid border-8 border-teal-500 p-8 items-center">
           <div tw="flex w-full items-center bg-white px-8 py-12">
-            <div tw="flex w-60 justify-center">
-              <img alt="" src={`https:${coverImage?.fields.file.url}`} />
+            <div tw="flex w-1/4 justify-center">
+              <img
+                tw="w-50 h-50"
+                alt=""
+                src={`https:${coverImage?.fields.file.url}`}
+              />
             </div>
             <div tw="flex-1 flex flex-col">
               <div tw="text-6xl w-full">{title}</div>

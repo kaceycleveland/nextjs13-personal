@@ -21,29 +21,43 @@ const clientCreator = (preview = false) => {
 const client = clientCreator();
 
 export const getPosts = async () => {
-  const posts = await client.getEntries<IBlogPostFields>({
-    content_type: "blog-post",
-    order: "-sys.createdAt",
-  });
+  const posts = await client
+    .getEntries<IBlogPostFields>({
+      content_type: "blog-post",
+      order: "-sys.createdAt",
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 
-  return posts.items;
+  return posts?.items.length ? posts.items : undefined;
 };
 
 export const getPostSlugs = async () => {
-  const posts = await client.getEntries<Pick<IBlogPostFields, "slug">>({
-    content_type: "blog-post",
-    select: "fields.slug",
-    order: "-sys.createdAt",
-  });
+  const posts = await client
+    .getEntries<Pick<IBlogPostFields, "slug">>({
+      content_type: "blog-post",
+      select: "fields.slug",
+      order: "-sys.createdAt",
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 
-  return posts.items.map((item) => item.fields);
+  return posts && posts.items.length
+    ? posts.items.map((item) => item.fields)
+    : undefined;
 };
 
 export const getPostBySlug = async (slug?: string, preview = false) => {
   let usedClient = preview ? clientCreator(preview) : client;
-  const post = await usedClient.getEntries<IBlogPostFields>({
-    content_type: "blog-post",
-    "fields.slug[in]": slug,
-  });
-  return post.items[0];
+  const post = await usedClient
+    .getEntries<IBlogPostFields>({
+      content_type: "blog-post",
+      "fields.slug[in]": slug,
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  return post?.items.length ? post.items[0] : undefined;
 };

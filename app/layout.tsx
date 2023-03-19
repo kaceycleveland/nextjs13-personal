@@ -30,3 +30,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
     </html>
   );
 }
+
+export const metadata = {
+  title: {
+    default: "Kacey Cleveland Dev",
+    template: "%s | Kacey Cleveland Dev",
+  },
+  description: "I break, fix, and optimize things.",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/shortcut-icon.png",
+    apple: "/apple-icon.png",
+    other: {
+      rel: "apple-touch-icon-precomposed",
+      url: "/apple-touch-icon-precomposed.png",
+    },
+  },
+};
