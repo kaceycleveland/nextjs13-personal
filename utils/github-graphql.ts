@@ -1,4 +1,4 @@
-import { GithubDay } from "app/components/GithubActivity";
+import { GithubDay } from "app/(main)/components/GithubActivity";
 import axios from "axios";
 import { print } from "graphql";
 import gql from "graphql-tag";

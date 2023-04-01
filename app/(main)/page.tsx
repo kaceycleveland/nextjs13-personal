@@ -1,11 +1,11 @@
 import { PostEntryCard } from "./components/PostEntryCard";
 
-import { getPosts } from "utils/contentful-client";
 import { getGithubActivity } from "utils/github-graphql";
 import { GithubActivity } from "./components/GithubActivity";
+import { getPostsSummary } from "utils/sanity.client";
 
 export default async function Home() {
-  const posts = await getPosts();
+  const posts = await getPostsSummary();
   const githubActivity = await getGithubActivity();
 
   return (

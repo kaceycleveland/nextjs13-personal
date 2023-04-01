@@ -4,21 +4,26 @@ import Link from "next/link";
 import cn from "classnames";
 import { formatDate } from "utils/utils";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
-import { IBlogPostFields } from "types/contentful";
-import { Entry } from "contentful";
+import { Post } from "types/sanity";
+import { imageUrlBuilder } from "utils/sanity.client";
 
-export const PostEntryCard = (props: Entry<IBlogPostFields>) => {
-  const { slug, coverImage, title, description } = props.fields;
+export const PostEntryCard = (props: Post) => {
+  const { slug, image, title, description, creationDate } = props;
+
   return (
     <div className="group prose prose-a:no-underline prose-h3:my-0 prose-p:my-1 md:prose-h3:my-0 md:prose-p:my-1 w-full max-w-none text-left">
-      <Link href={`/posts/${slug}`} className="blog-entry-title">
+      <Link href={`/posts/${slug?.current}`} className="blog-entry-title">
         <div className="grid grid-cols-12 gap-x-4 gap-y-0 place-content-center trasition-all border-1 w-full gap-2 rounded-lg border bg-slate-50 p-4 shadow-none duration-300 ease-in-out hover:border-transparent hover:bg-white hover:shadow-lg">
           <div className="col-span-3 row-span-2 sm:col-span-2 flex align-center">
-            {props.fields.coverImage?.fields.file.url && (
+            {image && (
               <Image
                 className="my-0 object-contain align-middle"
                 alt="Post image"
-                src={`https:${coverImage?.fields.file.url}`}
+                src={imageUrlBuilder
+                  .image(image)
+                  .width(120)
+                  .height(120)
+                  .toString()}
                 width={120}
                 height={120}
               />
@@ -41,7 +46,7 @@ export const PostEntryCard = (props: Entry<IBlogPostFields>) => {
                     "blog-entry-date whitespace-nowrap text-sm text-slate-400"
                   }
                 >
-                  {props.sys.createdAt && formatDate(props.sys.createdAt)}
+                  {creationDate && formatDate(creationDate)}
                 </p>
               </div>
             </div>

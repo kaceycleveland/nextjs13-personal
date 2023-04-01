@@ -1,6 +1,6 @@
 import { NavItemMenu } from "./components/Navigation";
 import * as fonts from "./components/fonts";
-import "./globals.css";
+import "../globals.css";
 import { ReactNode } from "react";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { Analytics } from "@vercel/analytics/react";

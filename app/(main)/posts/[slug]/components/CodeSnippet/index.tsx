@@ -1,6 +1,5 @@
 import React from "react";
 import MarkdownIt from "markdown-it";
-import { ICodeBlockFields } from "types/contentful";
 import hljs from "highlight.js/lib/common";
 
 import "./hljs-theme.css";
@@ -9,7 +8,9 @@ const md = new MarkdownIt({
   linkify: false,
 });
 
-const CodeSnippet = ({ code, language }: ICodeBlockFields) => {
+const CodeSnippet = (props: any) => {
+  console.log(props);
+  const { code } = props.value;
   if (!code) return <div />;
   return (
     <pre

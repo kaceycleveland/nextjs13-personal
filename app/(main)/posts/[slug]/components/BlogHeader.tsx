@@ -27,7 +27,7 @@ export const BlogHeader = ({
           {imgUrl && (
             <Image
               className="overflow-hidden rounded-lg"
-              src={`https:${imgUrl}`}
+              src={imgUrl}
               width={140}
               height={140}
               alt="Post image"
