@@ -1,6 +1,6 @@
 import { createClient } from "next-sanity";
 import { Post } from "types/sanity";
-import * as sanityImageUrlBuilder from "@sanity/image-url";
+import sanityImageUrlBuilder from "@sanity/image-url";
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
