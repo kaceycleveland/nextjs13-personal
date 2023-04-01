@@ -1,13 +1,15 @@
 import { ImageResponse } from "@vercel/og";
 import { getPostBySlug, imageUrlBuilder } from "utils/sanity.client";
 import { formatDate } from "utils/utils";
-import { PostPageProps } from "../page";
 
 export const config = {
   runtime: "experimental-edge",
 };
 
-export async function GET(request: Request, { params }: PostPageProps) {
+export async function GET(
+  request: Request,
+  { params }: { params: { slug: string } }
+) {
   const slug = params.slug;
   const post = await getPostBySlug(slug!);
 
