@@ -1,11 +1,13 @@
 import { DefaultDocumentNodeResolver } from "sanity/desk";
 import Iframe from "sanity-plugin-iframe-pane";
 import { SanityDocument } from "sanity";
+import { Post } from "types/sanity";
 
 // Customise this function to show the correct URL based on the current document
-function getPreviewUrl(doc: SanityDocument) {
-  return doc?.slug?.current
-    ? `${window.location.protocol}//${window.location.host}/api/post_preview/${doc.slug.current}`
+function getPreviewUrl(post: Post) {
+  const slug = post.slug?.current;
+  return slug
+    ? `${window.location.protocol}//${window.location.host}/api/post_preview/${slug}`
     : `${window.location.host}`;
 }
 
@@ -22,7 +24,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
         S.view
           .component(Iframe)
           .options({
-            url: (doc: SanityDocument) => getPreviewUrl(doc),
+            url: (doc: SanityDocument) => getPreviewUrl(doc as Post),
           })
           .title("Preview"),
       ]);
