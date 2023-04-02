@@ -15,13 +15,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <Analytics />
       <ScrollToTop />
       <body
-        className={`bg-gray-50 ${fonts.roboto.variable} ${fonts.monoton.variable} font-sans`}
+        className={`bg-gray-50 dark:bg-slate-900 ${fonts.roboto.variable} ${fonts.monoton.variable} font-sans`}
       >
         <div className={"flex h-screen flex-col justify-between"}>
           <NavItemMenu />
           <main className="mx-auto w-full flex-1 pt-28">{children}</main>
-          <footer className="bg-slate-200 text-center backdrop-blur-lg backdrop-opacity-50 lg:text-left">
-            <div className="p-4 text-center text-gray-700">
+          <footer className="bg-slate-200 text-center backdrop-blur-lg backdrop-opacity-50 dark:bg-slate-800 lg:text-left">
+            <div className="p-4 text-center text-gray-700 dark:text-slate-300">
               © 2022 Kacey Cleveland
             </div>
           </footer>

@@ -20,9 +20,9 @@ export default async function Home() {
           <GithubActivity activity={githubActivity} />
         </div>
       </div>
-      <div className="h-full w-full bg-slate-100 py-4">
+      <div className="h-full w-full bg-slate-100 py-4 dark:bg-slate-800">
         <div className="prose mx-auto my-4 text-center">
-          <h2 className="text-slate-500">Recent Posts</h2>
+          <h2 className="text-slate-500 dark:text-slate-300">Recent Posts</h2>
         </div>
         <div className="mx-auto flex flex-col gap-3 px-8 sm:max-w-[90%] sm:px-4 lg:max-w-3xl">
           {posts?.map((entry, index) => (

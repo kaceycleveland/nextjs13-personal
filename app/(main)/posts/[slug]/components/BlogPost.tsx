@@ -27,7 +27,11 @@ export const BlogPost = ({
         imgUrl={imgUrl}
         author="Kacey Cleveland"
       />
-      <div className={classNames("blog-post-content-container w-full")}>
+      <div
+        className={classNames(
+          "w-full dark:text-slate-300 dark:prose-headings:text-slate-300"
+        )}
+      >
         <div>
           <PortableText value={content!} components={portableTextComponents} />
         </div>

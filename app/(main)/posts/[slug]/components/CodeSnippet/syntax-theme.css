@@ -1,0 +1,23 @@
+@media (prefers-color-scheme: dark) {
+    .syntax-highlighter {
+        --backgroundColor: theme('colors.slate.800');
+        --tokenWhitespace: theme('colors.slate.600');
+        --variableColor: theme('colors.cyan.700');
+        --variableName: theme('colors.sky.300');
+        --defaultColor: theme('colors.slate.200');
+        --deleteDiffOne: theme('colors.orange.600');
+        --deleteDiffTwo: theme('colors.orange.700');
+        --insertDiffOne: theme('colors.green.600');
+        --insertDiffTwo: theme('colors.green.700');
+        --tokenSelector: theme('colors.teal.200');
+        --tokenSelectorTwo: theme('colors.teal.400');
+        --lightOne: theme('colors.slate.100');
+        --comment: theme('colors.slate.500');
+        --keyword: theme('colors.orange.300');
+        --tokenFunction: theme('colors.teal.200');
+        --punctuation: theme('colors.red.200');
+        --toolbarText: theme('colors.slate.400');
+        --lineNumbers: theme('colors.slate.700');
+        --white: theme('colors.white');
+    }
+}

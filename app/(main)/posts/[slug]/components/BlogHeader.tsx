@@ -21,7 +21,7 @@ export const BlogHeader = ({
       <div className="lg:w-auto">
         <div
           className={
-            "not-prose flex justify-center rounded-lg bg-slate-100 p-2"
+            "not-prose flex justify-center rounded-lg bg-slate-100 p-2 dark:bg-slate-700"
           }
         >
           {imgUrl && (
@@ -36,7 +36,7 @@ export const BlogHeader = ({
         </div>
       </div>
       <div className="flex-1">
-        <div className="">
+        <div className="dark:prose-headings:text-slate-300">
           <h1 className="mb-0 md:max-w-lg">{title}</h1>
           <h4 className="mt-2 mb-0">{formatDate(created)}</h4>
           <h4 className="mt-1">{author}</h4>

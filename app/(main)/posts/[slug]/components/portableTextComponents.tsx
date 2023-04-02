@@ -20,6 +20,6 @@ const ImageComponent = ({ value, isInline }: any) => {
 export const portableTextComponents = {
   types: {
     image: ImageComponent,
-    codeBlock: CodeSnippet,
+    myCodeField: CodeSnippet,
   },
 };

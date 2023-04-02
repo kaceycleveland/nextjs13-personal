@@ -1,23 +1,22 @@
 import React from "react";
-import MarkdownIt from "markdown-it";
-import hljs from "highlight.js/lib/common";
-
-import "./hljs-theme.css";
-const md = new MarkdownIt({
-  html: true,
-  linkify: false,
-});
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import theme from "./theme";
+import "./syntax-theme.css";
 
 const CodeSnippet = (props: any) => {
-  const { code } = props.value;
+  const { code, language } = props.value;
   if (!code) return <div />;
   return (
-    <pre
-      className="w-full overflow-auto whitespace-pre font-mono"
-      dangerouslySetInnerHTML={{
-        __html: hljs.highlightAuto(code).value,
-      }}
-    />
+    <div className="syntax-highlighter">
+      <SyntaxHighlighter
+        className="w-full overflow-auto whitespace-pre font-mono"
+        language={language}
+        style={theme}
+        showLineNumbers
+      >
+        {code}
+      </SyntaxHighlighter>
+    </div>
   );
 };
 

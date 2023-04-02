@@ -82,7 +82,7 @@ export const Post = defineField({
         },
         defineField({
           type: "code",
-          name: "codeBlock",
+          name: "myCodeField",
           title: "Code block",
         }),
       ],

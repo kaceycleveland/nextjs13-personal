@@ -13,7 +13,7 @@ export const PostEntryCard = (props: Post) => {
   return (
     <div className="group prose w-full max-w-none text-left prose-h3:my-0 prose-p:my-1 prose-a:no-underline md:prose-h3:my-0 md:prose-p:my-1">
       <Link href={`/posts/${slug?.current}`}>
-        <div className="grid w-full grid-cols-12 place-content-center gap-2 gap-x-4 gap-y-0 rounded-lg border bg-slate-50 p-4 shadow-none duration-300 ease-in-out hover:border-transparent hover:bg-white hover:shadow-lg">
+        <div className="grid w-full grid-cols-12 place-content-center gap-2 gap-x-4 gap-y-0 rounded-lg border bg-slate-50 p-4 shadow-none duration-300 ease-in-out hover:border-transparent hover:bg-white hover:shadow-lg dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800">
           <div className="col-span-3 row-span-2 flex sm:col-span-2">
             {image && (
               <Image
@@ -36,17 +36,21 @@ export const PostEntryCard = (props: Post) => {
                   "flex h-full flex-1 flex-col gap-0 sm:flex-row sm:justify-between sm:gap-3"
                 )}
               >
-                <h3>{title}</h3>
-                <p className={"whitespace-nowrap text-sm text-slate-400"}>
+                <h3 className="dark:text-slate-300">{title}</h3>
+                <p
+                  className={
+                    "whitespace-nowrap text-sm text-slate-400 dark:text-slate-300"
+                  }
+                >
                   {creationDate && formatDate(creationDate)}
                 </p>
               </div>
             </div>
           </div>
           <div className={"col-span-12 md:col-span-10"}>
-            <p>
+            <p className="dark:text-slate-300">
               {description}
-              <span className="hidden items-center justify-end transition-all group-hover:translate-x-0.5 group-hover:text-sky-400 md:flex md:justify-start">
+              <span className="hidden items-center justify-end transition-all group-hover:translate-x-0.5 group-hover:text-sky-400 dark:group-hover:text-sky-300 md:flex md:justify-start">
                 <span>Read more</span>
                 <ChevronRightIcon className="inline-block h-4 w-4" />
               </span>
