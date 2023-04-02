@@ -9,7 +9,6 @@ const md = new MarkdownIt({
 });
 
 const CodeSnippet = (props: any) => {
-  console.log(props);
   const { code } = props.value;
   if (!code) return <div />;
   return (

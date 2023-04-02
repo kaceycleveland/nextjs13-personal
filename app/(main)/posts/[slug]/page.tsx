@@ -19,7 +19,11 @@ export async function generateMetadata({ params }: PostPageProps) {
 
   if (!slug) notFound();
 
-  if (preview) console.log("Preview head", preview);
+  if (preview) {
+    return {
+      title: "Post Preview",
+    };
+  }
 
   const posts = await getPostBySlug(slug);
 
@@ -62,7 +66,6 @@ export default async function PostPage({ params: { slug } }: PostPageProps) {
   }
 
   if (preview) {
-    console.log("Preview", preview);
     return (
       <PreviewSuspense fallback="Loading...">
         <PreviewBlogPost slug={slug} />
@@ -91,5 +94,3 @@ export default async function PostPage({ params: { slug } }: PostPageProps) {
     />
   );
 }
-
-export const dynamicParams = true;

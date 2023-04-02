@@ -28,12 +28,8 @@ export const BlogPost = ({
         author="Kacey Cleveland"
       />
       <div className={classNames("blog-post-content-container w-full")}>
-        {/* <CollectionRow block={pageBlock.value} /> */}
         <div className={"blog-post-container"}>
           <PortableText value={content!} components={portableTextComponents} />
-          {/* @ts-ignore: NextJS server component */}
-          {/* // <RichTextRender body={body} /> */}
-          {/* <TableOfContents toc={tableOfContents} /> */}
         </div>
         <Comments />
       </div>
