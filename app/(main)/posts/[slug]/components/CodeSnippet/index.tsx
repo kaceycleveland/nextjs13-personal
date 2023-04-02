@@ -1,5 +1,8 @@
 import React from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  Prism as SyntaxHighlighter,
+  SyntaxHighlighterProps,
+} from "react-syntax-highlighter";
 import theme from "./theme";
 import "./syntax-theme.css";
 
@@ -11,7 +14,7 @@ const CodeSnippet = (props: any) => {
       <SyntaxHighlighter
         className="w-full overflow-auto whitespace-pre font-mono"
         language={language}
-        style={theme}
+        style={theme as SyntaxHighlighterProps["style"]}
         showLineNumbers
       >
         {code}
