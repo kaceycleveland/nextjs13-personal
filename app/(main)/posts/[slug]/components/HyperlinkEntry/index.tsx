@@ -56,7 +56,7 @@ export default async function HyperlinkEntry({
   return (
     <Link
       href={isLocalLink ? url.pathname : passedLink}
-      className="flex flex-col prose-headings:mb-1 prose-headings:mt-0 prose-p:mb-2 no-underline my-2 flex gap-2 rounded-lg border bg-slate-50 p-4 cursor-pointer shadow-none duration-300 ease-in-out hover:border-transparent hover:bg-white hover:shadow-lg"
+      className="my-2 flex cursor-pointer flex-col gap-2 rounded-lg border bg-slate-50 p-4 no-underline shadow-none duration-300 ease-in-out hover:border-transparent hover:bg-white hover:shadow-lg prose-headings:mb-1 prose-headings:mt-0 prose-p:mb-2"
     >
       {/** These need to be spans for some reason or else the server and client fail to match */}
       <span className="text-xl font-bold">{ogMetadata.ogTitle}</span>

@@ -28,7 +28,7 @@ export const BlogPost = ({
         author="Kacey Cleveland"
       />
       <div className={classNames("blog-post-content-container w-full")}>
-        <div className={"blog-post-container"}>
+        <div>
           <PortableText value={content!} components={portableTextComponents} />
         </div>
         <Comments />

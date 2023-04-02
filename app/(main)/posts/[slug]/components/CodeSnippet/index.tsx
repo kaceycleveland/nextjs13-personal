@@ -13,7 +13,7 @@ const CodeSnippet = (props: any) => {
   if (!code) return <div />;
   return (
     <pre
-      className="whitespace-pre w-full overflow-auto font-mono"
+      className="w-full overflow-auto whitespace-pre font-mono"
       dangerouslySetInnerHTML={{
         __html: hljs.highlightAuto(code).value,
       }}

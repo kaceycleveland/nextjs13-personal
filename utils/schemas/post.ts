@@ -82,8 +82,8 @@ export const Post = defineField({
         },
         defineField({
           type: "code",
-          name: "myCodeField",
-          title: "My code field",
+          name: "codeBlock",
+          title: "Code block",
         }),
       ],
       validation: (Rule) => Rule.required(),

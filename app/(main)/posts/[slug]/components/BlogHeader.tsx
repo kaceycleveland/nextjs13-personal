@@ -15,13 +15,13 @@ export const BlogHeader = ({
   return (
     <div
       className={
-        "blog-post-title-container mt-8 mb-4 flex flex-col md:flex-row md:text-left items-center gap-3 pb-8 text-center border-b-2 border-slate-200 border-dashed"
+        "mt-8 mb-4 flex flex-col items-center gap-3 border-b-2 border-dashed border-slate-200 pb-8 text-center md:flex-row md:text-left"
       }
     >
-      <div className="image-container lg:w-auto">
+      <div className="lg:w-auto">
         <div
           className={
-            "flex justify-center rounded-lg bg-slate-100 p-2 not-prose"
+            "not-prose flex justify-center rounded-lg bg-slate-100 p-2"
           }
         >
           {imgUrl && (

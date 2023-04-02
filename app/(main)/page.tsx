@@ -9,11 +9,11 @@ export default async function Home() {
   const githubActivity = await getGithubActivity();
 
   return (
-    <div className="flex h-full flex-col align-center">
-      <div className="overflow-hidden relative max-w-none pt-12 pb-10 sm:pb-20">
-        <div className="relative m-auto flex flex-col-reverse text-4xl md:text-6xl items-center justify-center text-center">
+    <div className="flex h-full flex-col">
+      <div className="relative max-w-none overflow-hidden pt-12 pb-10 sm:pb-20">
+        <div className="relative m-auto flex flex-col-reverse items-center justify-center text-center text-4xl md:text-6xl">
           <h1
-            className={`animate-color-rotate font-monoton bg-4x bg-gradient-to-r from-orange-600 to-teal-600 bg-cover bg-clip-text bg-left-bottom p-2 text-transparent`}
+            className={`animate-color-rotate bg-gradient-to-r from-orange-600 to-teal-600 bg-4x bg-clip-text bg-left-bottom p-2 font-monoton text-transparent`}
           >
             Kacey Cleveland
           </h1>
@@ -24,7 +24,7 @@ export default async function Home() {
         <div className="prose mx-auto my-4 text-center">
           <h2 className="text-slate-500">Recent Posts</h2>
         </div>
-        <div className="mx-auto flex flex-col gap-3 px-8 sm:px-4 sm:max-w-[90%] lg:max-w-3xl">
+        <div className="mx-auto flex flex-col gap-3 px-8 sm:max-w-[90%] sm:px-4 lg:max-w-3xl">
           {posts?.map((entry, index) => (
             <PostEntryCard key={"post-entry-" + index} {...entry} />
           ))}

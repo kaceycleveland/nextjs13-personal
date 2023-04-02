@@ -7,9 +7,9 @@ export const Comments = () => {
     repo: "kleveland/next-personal-site",
   });
   return (
-    <div className={"comments-in-view"} ref={inViewRef}>
-      {!loaded && <div className={"loading-comments"}>Loading...</div>}
-      <div ref={utterancesRef} className={"comments-render-container"}></div>
+    <div ref={inViewRef}>
+      {!loaded && <div>Loading...</div>}
+      <div ref={utterancesRef}></div>
     </div>
   );
 };

@@ -33,7 +33,7 @@ export const PreviewBlogPost = ({ slug }: PreviewBlogPostProps) => {
       />
       <Link
         href={`/api/exit_post_preview/${slug}`}
-        className="fixed bottom-4 right-4 p-2 bg-slate-800 rounded bordered z-10 text-lg font-bold text-white"
+        className="fixed bottom-4 right-4 z-10 rounded bg-slate-800 p-2 text-lg font-bold text-white"
       >
         Exit Preview
       </Link>

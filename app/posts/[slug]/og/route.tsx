@@ -31,6 +31,7 @@ export async function GET(
         <div tw="flex w-full h-full bg-slate-100 border-solid border-8 border-teal-500 p-8 items-center">
           <div tw="flex w-full items-center bg-white px-8 py-12">
             <div tw="flex w-1/4 justify-center">
+              {/* eslint-disable-next-line */}
               <img
                 tw="w-50 h-50"
                 alt=""

@@ -6,7 +6,7 @@ interface RootLayoutProps {
 
 export default function PostLayout({ children }: RootLayoutProps) {
   return (
-    <div className="prose prose-a:underline-offset-4 prose-a:decoration-dashed prose-a:decoration-slate-400 prose-a:decoration-from-font xl:prose-md xl:prose-h1:my-0 xl:prose-h1:leading-tight m-auto max-w-4xl gap-6 px-6">
+    <div className="prose m-auto max-w-4xl gap-6 px-6 prose-a:decoration-slate-400 prose-a:decoration-dashed prose-a:decoration-from-font prose-a:underline-offset-4 xl:prose-h1:my-0 xl:prose-h1:leading-tight">
       {children}
     </div>
   );

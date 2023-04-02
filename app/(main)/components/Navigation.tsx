@@ -37,16 +37,16 @@ export const NavItemMenu = () => {
 
   return (
     <header
-      className={`trasition fixed z-10 w-full bg-opacity-50 bg-gradient-to-b from-slate-200 to-transparent backdrop-blur-lg backdrop-filter duration-500 ease-in-out ${
+      className={`fixed z-10 w-full bg-gradient-to-b from-slate-200 to-transparent backdrop-blur-lg backdrop-opacity-50 transition-all duration-500 ease-in-out${
         animateHeader && "shadow-xl"
       }`}
     >
-      <div className="background-animate animate-color-rotate bg-4x fixed h-2 w-full bg-gradient-to-r from-orange-200 to-teal-200"></div>
+      <div className="fixed h-2 w-full animate-color-rotate bg-gradient-to-r from-orange-200 to-teal-200 bg-4x"></div>
       <div className="mx-auto max-w-7xl ">
         <div
           className={`flex max-w-screen-xl py-10 ${
             animateHeader && "py-5"
-          } trasition mx-auto items-center justify-between px-8 duration-500 ease-in-out`}
+          } mx-auto items-center justify-between px-8 transition-all duration-500 ease-in-out`}
         >
           <Link href="/">
             <span className="flex items-center gap-2">
