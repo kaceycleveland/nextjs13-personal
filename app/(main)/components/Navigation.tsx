@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { getGravatar } from "utils/getGravatar";
 import classNames from "classnames";
-import ThemeSwitchButton from "./ThemeSwitchButton";
 
 const avatarUrl = getGravatar("kaceycleveland.mail@gmail.com", 200);
 
@@ -93,7 +92,6 @@ export const NavItemMenu = () => {
                 })}
               </ul>
             </nav>
-            <ThemeSwitchButton />
           </div>
         </div>
       </div>

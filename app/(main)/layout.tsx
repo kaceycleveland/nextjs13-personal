@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { cookies } from "next/headers";
 
 interface RootLayoutProps {
   children?: ReactNode;
@@ -12,13 +13,12 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html className="scroll-smooth" lang="en" data-theme="">
+    <html className="scroll-smooth" lang="en">
       <Analytics />
       <ScrollToTop />
       <body
         className={`bg-gray-50 dark:bg-slate-900 ${fonts.roboto.variable} ${fonts.monoton.variable} font-sans`}
       >
-        <Script src="/theme.js" />
         <div className={"flex h-screen flex-col justify-between"}>
           <NavItemMenu />
           <main className="mx-auto w-full flex-1 pt-28">{children}</main>
