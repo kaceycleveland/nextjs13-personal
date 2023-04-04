@@ -10,42 +10,36 @@ const THEME = {
 } as const;
 
 const getIsDarkMode = () => {
-  const foundValue =
-    typeof window !== undefined
-      ? localStorage.getItem(LOCAL_STORAGE_THEME_KEY)
-      : undefined;
+  let foundValue;
+  if (typeof window !== "undefined" && typeof localStorage !== "undefined") {
+    foundValue = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
+  }
   return (
     foundValue === THEME.dark ||
-    (!foundValue && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    (!foundValue &&
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
   );
 };
 
 export default function ThemeSwitchButton() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(getIsDarkMode());
 
   const toggleDarkMode = useCallback(() => {
     if (isDarkMode) {
       setIsDarkMode(false);
       document.documentElement.classList.remove("dark");
-      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.light);
+      window.localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.light);
     } else {
       setIsDarkMode(true);
       document.documentElement.classList.add("dark");
-      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.dark);
+      window.localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.dark);
     }
   }, [isDarkMode]);
 
   useEffect(() => {
-    const isDarkMode = getIsDarkMode();
-    if (isDarkMode) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.dark);
-    } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.light);
-    }
+    setIsLoaded(true);
   }, []);
 
   return (
@@ -53,7 +47,7 @@ export default function ThemeSwitchButton() {
       className="h-6 w-6 transition-colors dark:text-white"
       onClick={toggleDarkMode}
     >
-      {isDarkMode ? <SunIcon /> : <MoonIcon />}
+      {isLoaded ? isDarkMode ? <SunIcon /> : <MoonIcon /> : null}
     </div>
   );
 }
