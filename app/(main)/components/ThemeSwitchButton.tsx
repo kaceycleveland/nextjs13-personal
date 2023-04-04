@@ -29,11 +29,11 @@ export default function ThemeSwitchButton() {
   const toggleDarkMode = useCallback(() => {
     if (isDarkMode) {
       setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
+      document.documentElement.setAttribute("data-theme", "light");
       window.localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.light);
     } else {
       setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
       window.localStorage.setItem(LOCAL_STORAGE_THEME_KEY, THEME.dark);
     }
   }, [isDarkMode]);
