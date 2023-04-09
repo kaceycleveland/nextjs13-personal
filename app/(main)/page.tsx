@@ -10,15 +10,13 @@ export default async function Home() {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="relative max-w-none overflow-hidden pt-12 pb-10 sm:pb-20">
-        <div className="relative m-auto flex flex-col-reverse items-center justify-center text-center text-4xl md:text-6xl">
-          <h1
-            className={`animate-color-rotate bg-gradient-to-r from-orange-600 to-teal-600 bg-4x bg-clip-text bg-left-bottom p-2 font-monoton text-transparent`}
-          >
-            Kacey Cleveland
-          </h1>
-          <GithubActivity activity={githubActivity} />
-        </div>
+      <div className="relative m-auto flex flex-col items-center justify-center py-20 text-center text-4xl md:text-6xl">
+        <GithubActivity activity={githubActivity} />
+        <h1
+          className={`animate-color-rotate bg-gradient-to-r from-orange-600 to-teal-600 bg-4x bg-clip-text bg-left-bottom p-2 font-monoton text-transparent`}
+        >
+          Kacey Cleveland
+        </h1>
       </div>
       <div className="h-full w-full bg-slate-100 py-4 dark:bg-slate-800">
         <div className="prose mx-auto my-4 text-center">

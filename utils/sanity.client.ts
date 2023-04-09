@@ -25,7 +25,7 @@ export const getPostSlugs = async () => {
   return await client.fetch<Post["slug"][]>(allSlugsQuery);
 };
 
-const allPostsSummaryQuery = `*[_type == "post"]{slug,title,image,description,creationDate,lastUpdatedDate,tags}`;
+const allPostsSummaryQuery = `*[_type == "post"] | order(creationDate desc) {slug,title,image,description,creationDate,lastUpdatedDate,tags}`;
 export const getPostsSummary = async () => {
   return await client.fetch<Post[]>(allPostsSummaryQuery);
 };
