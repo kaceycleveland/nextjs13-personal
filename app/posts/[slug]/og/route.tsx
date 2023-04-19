@@ -2,9 +2,7 @@ import { ImageResponse } from "@vercel/og";
 import { getPostBySlug, imageUrlBuilder } from "utils/sanity.client";
 import { formatDate } from "utils/utils";
 
-export const config = {
-  runtime: "experimental-edge",
-};
+export const runtime = "experimental-edge";
 
 export async function GET(
   request: Request,
