@@ -1,4 +1,4 @@
-import { createClient } from "next-sanity";
+import { createClient, SanityClient } from "next-sanity";
 import { Post } from "types/sanity";
 import sanityImageUrlBuilder from "@sanity/image-url";
 
@@ -13,11 +13,23 @@ export const client = createClient({
   useCdn: true,
 });
 
+export const getClient = ({token}: {token?: string}): SanityClient => {
+  if (token) {
+    return client.withConfig({
+      token,
+      useCdn: false,
+      ignoreBrowserTokenWarning: true,
+    })
+  }
+  return client
+}
+
 export const imageUrlBuilder = sanityImageUrlBuilder(client);
+export const previewImageUrlBuilder = sanityImageUrlBuilder(getClient({ token: process.env.SANITY_API_READ_TOKEN  }));
 
 export const slugQuery = `*[_type == "post" && slug.current == $slug]{'imageUrl': image.asset->url, ...}`;
-export const getPostBySlug = async (slug: string) => {
-  return await client.fetch<Post[]>(slugQuery, { slug });
+export const getPostBySlug = async (slug: string, draft?: boolean) => {
+  return await getClient({ token: draft ? process.env.SANITY_API_READ_TOKEN : undefined }).fetch<Post[]>(slugQuery, { slug });
 };
 
 const allSlugsQuery = `*[_type == "post"]{slug}`;

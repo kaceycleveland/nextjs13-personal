@@ -1,42 +1,57 @@
 "use client";
 
-import Link from "next/link";
-import { notFound } from "next/navigation";
+import { useLiveQuery } from "next-sanity/preview";
 import { Post } from "types/sanity";
-import { imageUrlBuilder, slugQuery } from "utils/sanity.client";
-import { usePreview } from "utils/sanity.preview";
+import {
+  previewImageUrlBuilder,
+  slugQuery,
+} from "utils/sanity.client";
 import { BlogPost } from "./BlogPost";
 
-interface PreviewBlogPostProps {
-  slug: string;
-}
+export const PreviewBlogPost = ({ posts }: { posts: Post[] }) => {
+  const [data] = useLiveQuery(posts, slugQuery, {
+    slug: posts[0].slug?.current,
+  });
 
-export const PreviewBlogPost = ({ slug }: PreviewBlogPostProps) => {
-  const posts: Post[] = usePreview(null, slugQuery, { slug });
-
-  if (!posts || !posts.length) {
-    notFound();
+  if (!data || !data.length) {
+    console.log("No slug found!");
+    return <>No slug found!</>;
   }
 
-  const post = posts[0];
+  const post = data[0];
 
-  const { title, image, content, creationDate } = post;
+  console.log("initial data", posts[0]);
+  console.log("live data", post);
 
-  if (!title || !creationDate || !image) return notFound();
+  if (!post.title) {
+    console.log("no title error", post.title);
+    return <>No title</>;
+  }
+
+  if (!post.creationDate) {
+    {
+      console.log("no creation error", post.creationDate);
+      return <>No creation date</>;
+    }
+  }
+
+  if (!post.image) {
+    {
+      console.log("no image error", post.image);
+      return <>No image</>;
+    }
+  }
+
   return (
-    <>
-      <BlogPost
-        title={title}
-        creationDate={creationDate}
-        content={content}
-        imgUrl={imageUrlBuilder.image(image).width(200).height(200).toString()}
-      />
-      <Link
-        href={`/api/exit_post_preview/${slug}`}
-        className="fixed bottom-4 right-4 z-10 rounded bg-slate-800 p-2 text-lg font-bold text-white"
-      >
-        Exit Preview
-      </Link>
-    </>
+    <BlogPost
+      title={post.title}
+      creationDate={post.creationDate}
+      content={post.content}
+      imageUrl={previewImageUrlBuilder
+        .image(post.image)
+        .width(200)
+        .height(200)
+        .toString()}
+    />
   );
 };

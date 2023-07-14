@@ -6,17 +6,17 @@ import { BlogHeader } from "./BlogHeader";
 import { Comments } from "./Comments";
 import { portableTextComponents } from "./portableTextComponents";
 
-interface BlogPostProps {
+export interface BlogPostProps {
   title: string;
   creationDate: string;
-  imgUrl: string;
+  imageUrl: string;
   content: any;
 }
 
 export const BlogPost = ({
   title,
   creationDate,
-  imgUrl,
+  imageUrl,
   content,
 }: BlogPostProps) => {
   return (
@@ -24,7 +24,7 @@ export const BlogPost = ({
       <BlogHeader
         title={title}
         created={creationDate}
-        imgUrl={imgUrl}
+        imgUrl={imageUrl}
         author="Kacey Cleveland"
       />
       <div

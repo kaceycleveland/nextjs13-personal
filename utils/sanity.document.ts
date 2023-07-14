@@ -7,7 +7,7 @@ import { Post } from "types/sanity";
 function getPreviewUrl(post: Post) {
   const slug = post.slug?.current;
   return slug
-    ? `${window.location.protocol}//${window.location.host}/api/post_preview/${slug}`
+    ? `${window.location.protocol}//${window.location.host}/api/draft?slug=${slug}&secret=${process.env.NEXT_PUBLIC_SANITY_SECRET_TOKEN}`
     : `${window.location.host}`;
 }
 

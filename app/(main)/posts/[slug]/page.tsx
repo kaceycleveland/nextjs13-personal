@@ -1,5 +1,6 @@
-import { previewData } from "next/headers";
+import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import {
   getPostSlugs,
   getPostBySlug,
@@ -7,19 +8,19 @@ import {
 } from "utils/sanity.client";
 import { BlogPost } from "./components/BlogPost";
 import { PreviewBlogPost } from "./components/PreviewBlogPost";
-import PreviewSuspense from "../../components/PreviewSuspense";
+import PreviewProvider from "app/(main)/components/PreviewProvider";
 
 export interface PostPageProps {
   params: { slug: string };
 }
 
-export async function generateMetadata({ params }: PostPageProps) {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const slug = params.slug;
-  const preview = Boolean(previewData());
+  const { isEnabled } = draftMode();
 
   if (!slug) notFound();
 
-  if (preview) {
+  if (isEnabled) {
     return {
       title: "Post Preview",
     };
@@ -33,20 +34,23 @@ export async function generateMetadata({ params }: PostPageProps) {
 
   const { title } = posts[0];
 
+  const images = slug ? [
+    {
+      url: `${process.env.BASE_URL}/posts/${slug}/og`,
+      width: 1200,
+      height: 630,
+    },
+  ]: undefined;
+
   return {
     title,
     // description,
     openGraph: {
       title,
+      siteName: title,
       type: "article",
       url: `${process.env.BASE_URL}/posts/${slug}`,
-      images: [
-        {
-          url: slug ? `${process.env.BASE_URL}/posts/${slug}/og` : undefined,
-          width: 1200,
-          height: 630,
-        },
-      ],
+      images
     },
   };
 }
@@ -59,21 +63,27 @@ export async function generateStaticParams() {
 }
 
 export default async function PostPage({ params: { slug } }: PostPageProps) {
-  const preview = Boolean(previewData());
+  const { isEnabled } = draftMode()
+  const preview = isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
 
   if (!slug) {
     notFound();
   }
 
-  if (preview) {
+
+  const posts = await getPostBySlug(slug, isEnabled);
+
+  if (isEnabled && preview?.token) {
+    console.log('PREVIEW LOADING', preview.token)
     return (
-      <PreviewSuspense fallback="Loading...">
-        <PreviewBlogPost slug={slug} />
-      </PreviewSuspense>
+      <PreviewProvider  token={preview.token}>
+        <PreviewBlogPost posts={posts} />
+      </PreviewProvider>
     );
   }
+
+  console.log('GOT HERE');
   // const post = await getPostBySlug(slug, preview);
-  const posts = await getPostBySlug(slug);
 
   if (!posts || !posts.length) {
     notFound();
@@ -90,7 +100,7 @@ export default async function PostPage({ params: { slug } }: PostPageProps) {
       title={title}
       creationDate={creationDate}
       content={content!}
-      imgUrl={imageUrlBuilder.image(image).width(200).height(200).toString()}
+      imageUrl={imageUrlBuilder.image(image).width(200).height(200).toString()}
     />
   );
 }

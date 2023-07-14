@@ -1,17 +1,19 @@
 import Image from "next/image";
 import { formatDate } from "utils/utils";
 
+interface BlogHeaderProps {
+  imgUrl?: string;
+  title?: string;
+  created?: string;
+  author?: string;
+}
+
 export const BlogHeader = ({
   imgUrl,
   title,
   created,
   author,
-}: {
-  imgUrl?: string;
-  title?: string;
-  created?: string;
-  author?: string;
-}) => {
+}: BlogHeaderProps) => {
   return (
     <div
       className={
