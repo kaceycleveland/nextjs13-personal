@@ -34,6 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 }
 
 export const metadata = {
+  metadataBase: new URL("https://www.kleveland.dev"),
   title: {
     default: "Kacey Cleveland Dev",
     template: "%s | Kacey Cleveland Dev",

@@ -14,7 +14,9 @@ export interface PostPageProps {
   params: { slug: string };
 }
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
   const slug = params.slug;
   const { isEnabled } = draftMode();
 
@@ -34,13 +36,15 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
   const { title } = posts[0];
 
-  const images = slug ? [
-    {
-      url: `${process.env.BASE_URL}/posts/${slug}/og`,
-      width: 1200,
-      height: 630,
-    },
-  ]: undefined;
+  const images = slug
+    ? [
+        {
+          url: `${process.env.BASE_URL}/posts/${slug}/og`,
+          width: 1200,
+          height: 630,
+        },
+      ]
+    : undefined;
 
   return {
     title,
@@ -50,7 +54,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       siteName: title,
       type: "article",
       url: `${process.env.BASE_URL}/posts/${slug}`,
-      images
+      images,
     },
   };
 }
@@ -63,26 +67,26 @@ export async function generateStaticParams() {
 }
 
 export default async function PostPage({ params: { slug } }: PostPageProps) {
-  const { isEnabled } = draftMode()
-  const preview = isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
+  const { isEnabled } = draftMode();
+  const preview = isEnabled
+    ? { token: process.env.SANITY_API_READ_TOKEN }
+    : undefined;
 
   if (!slug) {
     notFound();
   }
 
-
   const posts = await getPostBySlug(slug, isEnabled);
 
   if (isEnabled && preview?.token) {
-    console.log('PREVIEW LOADING', preview.token)
+    console.log("PREVIEW LOADING", preview.token);
     return (
-      <PreviewProvider  token={preview.token}>
+      <PreviewProvider token={preview.token}>
         <PreviewBlogPost posts={posts} />
       </PreviewProvider>
     );
   }
 
-  console.log('GOT HERE');
   // const post = await getPostBySlug(slug, preview);
 
   if (!posts || !posts.length) {
