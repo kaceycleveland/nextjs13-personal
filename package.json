@@ -3,20 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "predev": "pnpm run typegen",
+    "prebuild": "pnpm run typegen",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typegen": "sanity schema extract && sanity typegen generate"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.13",
-    "@portabletext/react": "^2.0.2",
+    "@portabletext/react": "^3.2.1",
     "@sanity/asset-utils": "^1.3.0",
     "@sanity/code-input": "^4.1.2",
     "@sanity/icons": "2.10.1",
-    "@sanity/image-url": "^1.0.2",
+    "@sanity/image-url": "^1.1.0",
     "@sanity/types": "3.27.1",
-    "@sanity/ui": "2.0.1",
+    "@sanity/ui": "2.16.2",
+    "@sanity/vision": "^3.95.0",
     "@tailwindcss/typography": "0.5.10",
     "@vercel/analytics": "1.1.2",
     "@vercel/og": "0.6.2",
@@ -26,16 +30,16 @@
     "graphql-tag": "^2.12.6",
     "highlight.js": "^11.7.0",
     "markdown-it": "^13.0.1",
-    "next": "14.1.0",
-    "next-sanity": "7.0.17",
+    "next": "15.3.4",
+    "next-sanity": "9.12.0",
     "open-graph-scraper": "^5.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-intersection-observer": "^9.4.0",
     "react-syntax-highlighter": "^15.5.0",
-    "sanity": "3.27.1",
+    "sanity": "3.95.0",
     "sanity-plugin-iframe-pane": "^2.3.0",
-    "styled-components": "5.2",
+    "styled-components": "^6.1.19",
     "ts-md5": "^1.3.1"
   },
   "devDependencies": {
@@ -45,19 +49,25 @@
     "@types/markdown-it": "^12.2.3",
     "@types/node": "18.11.5",
     "@types/prismjs": "^1.26.0",
-    "@types/react": "18.2.52",
-    "@types/react-dom": "18.2.18",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
     "@types/react-syntax-highlighter": "^15.5.6",
     "@typescript-eslint/parser": "^5.57.0",
     "autoprefixer": "^10.4.13",
     "dotenv": "^16.0.3",
     "eslint": "8.26.0",
-    "eslint-config-next": "14.1.0",
+    "eslint-config-next": "15.3.4",
     "eslint-plugin-tailwindcss": "^3.10.3",
     "postcss": "^8.4.20",
     "prettier": "^2.8.7",
-    "sanity-codegen": "^0.9.8",
     "tailwindcss": "3.4.1",
     "typescript": "4.8.4"
+  },
+  "packageManager": "pnpm@8.14.1+sha512.856c4ecd97c5d3f30354ebc373cd32fb37274295c489db2d0f613a1e60f010cadfbb15036d525f3a06dec1897e4219b3c4f6d3be8f2f62fb0a366bee6aaa7533",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.1.8",
+      "@types/react-dom": "19.1.6"
+    }
   }
 }

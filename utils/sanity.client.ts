@@ -1,43 +1,49 @@
-import { createClient, SanityClient } from "next-sanity";
-import { Post } from "types/sanity";
+import { defineQuery, groq, SanityClient } from "next-sanity";
+import {
+  AllPostsSummaryQueryResult,
+  AllSlugsQueryResult,
+  SlugQueryResult,
+} from "sanity.types";
 import sanityImageUrlBuilder from "@sanity/image-url";
+import { client } from "../sanity-lib/lib/client";
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION;
 
-export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true,
-});
-
-export const getClient = ({token}: {token?: string}): SanityClient => {
+export const getClient = ({ token }: { token?: string }): SanityClient => {
   if (token) {
     return client.withConfig({
       token,
       useCdn: false,
       ignoreBrowserTokenWarning: true,
-    })
+    });
   }
-  return client
-}
+  return client;
+};
 
 export const imageUrlBuilder = sanityImageUrlBuilder(client);
-export const previewImageUrlBuilder = sanityImageUrlBuilder(getClient({ token: process.env.SANITY_API_READ_TOKEN  }));
+export const previewImageUrlBuilder = sanityImageUrlBuilder(
+  getClient({ token: process.env.SANITY_API_READ_TOKEN })
+);
 
-export const slugQuery = `*[_type == "post" && slug.current == $slug]{'imageUrl': image.asset->url, ...}`;
+export const slugQuery = defineQuery(
+  groq`*[_type == "post" && slug.current == $slug]{'imageUrl': image.asset->url, ...}`
+);
 export const getPostBySlug = async (slug: string, draft?: boolean) => {
-  return await getClient({ token: draft ? process.env.SANITY_API_READ_TOKEN : undefined }).fetch<Post[]>(slugQuery, { slug });
+  return await getClient({
+    token: draft ? process.env.SANITY_API_READ_TOKEN : undefined,
+  }).fetch<SlugQueryResult>(slugQuery, { slug });
 };
 
-const allSlugsQuery = `*[_type == "post"]{slug}`;
+const allSlugsQuery = defineQuery(groq`*[_type == "post"]{slug}`);
 export const getPostSlugs = async () => {
-  return await client.fetch<Post["slug"][]>(allSlugsQuery);
+  return await client.fetch<AllSlugsQueryResult>(allSlugsQuery);
 };
 
-const allPostsSummaryQuery = `*[_type == "post"] | order(creationDate desc) {slug,title,image,description,creationDate,lastUpdatedDate,tags}`;
+const allPostsSummaryQuery = defineQuery(
+  groq`*[_type == "post"] | order(creationDate desc) {slug,title,image,description,creationDate,lastUpdatedDate,tags}`
+);
 export const getPostsSummary = async () => {
-  return await client.fetch<Post[]>(allPostsSummaryQuery);
+  return await client.fetch<AllPostsSummaryQueryResult>(allPostsSummaryQuery);
 };

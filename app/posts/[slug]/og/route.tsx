@@ -2,12 +2,10 @@ import { ImageResponse } from "@vercel/og";
 import { getPostBySlug, imageUrlBuilder } from "utils/sanity.client";
 import { formatDate } from "utils/utils";
 
-export const runtime = "experimental-edge";
+export const runtime = "edge";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { slug: string } }
-) {
+export async function GET(request: Request, props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const slug = params.slug;
   const post = await getPostBySlug(slug!);
 

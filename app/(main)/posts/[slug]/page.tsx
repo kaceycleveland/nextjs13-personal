@@ -11,14 +11,15 @@ import { PreviewBlogPost } from "./components/PreviewBlogPost";
 import PreviewProvider from "app/(main)/components/PreviewProvider";
 
 export interface PostPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: PostPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  props: PostPageProps
+): Promise<Metadata> {
+  const params = await props.params;
   const slug = params.slug;
-  const { isEnabled } = draftMode();
+  const { isEnabled } = await draftMode();
 
   if (!slug) notFound();
 
@@ -62,12 +63,16 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const posts = await getPostSlugs();
   return posts.map((post) => ({
-    slug: post?.current,
+    slug: post?.slug?.current,
   }));
 }
 
-export default async function PostPage({ params: { slug } }: PostPageProps) {
-  const { isEnabled } = draftMode();
+export default async function PostPage(props: PostPageProps) {
+  const params = await props.params;
+
+  const { slug } = params;
+
+  const { isEnabled } = await draftMode();
   const preview = isEnabled
     ? { token: process.env.SANITY_API_READ_TOKEN }
     : undefined;

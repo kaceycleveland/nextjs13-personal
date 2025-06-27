@@ -3,7 +3,8 @@ import { imageUrlBuilder } from "utils/sanity.client";
 import CodeSnippet from "./CodeSnippet";
 import Image from "next/image";
 
-const ImageComponent = ({ value, isInline }: any) => {
+export const ImageComponent = (props: any) => {
+  const { value } = props;
   const { width, height } = getImageDimensions(value);
   return (
     <Image
