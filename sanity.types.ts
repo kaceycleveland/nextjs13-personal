@@ -13,6 +13,81 @@
  */
 
 // Source: schema.json
+export type Post = {
+  _id: string;
+  _type: "post";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  slug?: Slug;
+  creationDate?: string;
+  lastUpdatedDate?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  title?: string;
+  description?: string;
+  tags?: Array<string>;
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "normal"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        isInline?: boolean;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        language?: string;
+        code?: string;
+        _type: "myCodeField";
+        _key: string;
+      }
+  >;
+};
+
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -132,6 +207,7 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
+  | Post
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -147,13 +223,108 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./utils/sanity.client.ts
 // Variable: slugQuery
 // Query: *[_type == "post" && slug.current == $slug]{'imageUrl': image.asset->url, ...}
-export type SlugQueryResult = Array<never>;
+export type SlugQueryResult = Array<{
+  imageUrl: string | null;
+  _id: string;
+  _type: "post";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  slug?: Slug;
+  creationDate?: string;
+  lastUpdatedDate?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  title?: string;
+  description?: string;
+  tags?: Array<string>;
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "blockquote"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        isInline?: boolean;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        language?: string;
+        code?: string;
+        _type: "myCodeField";
+        _key: string;
+      }
+  >;
+}>;
 // Variable: allSlugsQuery
 // Query: *[_type == "post"]{slug}
-export type AllSlugsQueryResult = Array<never>;
+export type AllSlugsQueryResult = Array<{
+  slug: Slug | null;
+}>;
 // Variable: allPostsSummaryQuery
 // Query: *[_type == "post"] | order(creationDate desc) {slug,title,image,description,creationDate,lastUpdatedDate,tags}
-export type AllPostsSummaryQueryResult = Array<never>;
+export type AllPostsSummaryQueryResult = Array<{
+  slug: Slug | null;
+  title: string | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  description: string | null;
+  creationDate: string | null;
+  lastUpdatedDate: string | null;
+  tags: Array<string> | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";

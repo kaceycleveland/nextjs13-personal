@@ -4,10 +4,10 @@ import Link from "next/link";
 import cn from "classnames";
 import { formatDate } from "utils/utils";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
-import { Post } from "types/sanity";
 import { imageUrlBuilder } from "utils/sanity.client";
+import { AllPostsSummaryQueryResult } from "../../../sanity.types";
 
-export const PostEntryCard = (props: Post) => {
+export const PostEntryCard = (props: AllPostsSummaryQueryResult[0]) => {
   const { slug, image, title, description, creationDate } = props;
 
   return (

@@ -70,11 +70,11 @@ export const NavItemMenu = () => {
                 {menuItems?.map((item) => {
                   // Every segment should match the key for it to be active
                   const isActive =
-                    (segments.length &&
+                    (segments?.length &&
                       segments.every(
                         (key, idx) => key === item.activeKey[idx]
                       )) ||
-                    (item.activeKey.length === 0 && segments.length === 0);
+                    (item.activeKey.length === 0 && segments?.length === 0);
 
                   return (
                     <li key={item?.title}>
