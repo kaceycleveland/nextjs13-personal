@@ -16,8 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "utils/*": ["utils/*"],
-      "types/*": ["types/*"]
+      "utils/*": ["utils/*"]
     },
     "plugins": [
       {
