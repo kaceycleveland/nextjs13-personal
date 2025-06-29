@@ -1,14 +1,11 @@
 "use client";
 
 import { useLiveQuery } from "next-sanity/preview";
-import { Post } from "types/sanity";
-import {
-  previewImageUrlBuilder,
-  slugQuery,
-} from "utils/sanity.client";
+import { previewImageUrlBuilder, slugQuery } from "utils/sanity.client";
 import { BlogPost } from "./BlogPost";
+import { SlugQueryResult } from "../../../../../sanity.types";
 
-export const PreviewBlogPost = ({ posts }: { posts: Post[] }) => {
+export const PreviewBlogPost = ({ posts }: { posts: SlugQueryResult }) => {
   const [data] = useLiveQuery(posts, slugQuery, {
     slug: posts[0].slug?.current,
   });
