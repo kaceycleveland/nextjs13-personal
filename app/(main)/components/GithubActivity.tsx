@@ -25,7 +25,7 @@ export const GithubActivity = ({ activity }: GithubActivityProps) => {
 
   return (
     <div className="relative mb-5 flex h-20 items-end gap-2">
-      <div className="absolute bottom-0 m-auto w-full translate-y-full font-mono text-xs text-slate-300">
+      <div className="absolute bottom-0 m-auto w-full translate-y-full font-mono text-xs text-slate-300 dark:text-slate-600">
         Github Activity
       </div>
       {activity.map((day, key) => (
@@ -60,14 +60,14 @@ const ActivityBar = ({
     >
       <div
         className={classNames(
-          "h-full w-2 grow bg-slate-300 pt-1 transition-colors duration-300 group-hover:bg-orange-300 group-focus:bg-orange-300",
-          { "bg-teal-300": isToday }
+          "h-full w-2 grow bg-slate-300 dark:bg-slate-700 pt-1 transition-colors duration-300 group-hover:bg-orange-300 dark:group-hover:bg-orange-400 group-focus:bg-orange-300 dark:group-focus:bg-orange-400",
+          { "bg-teal-300 dark:bg-teal-400": isToday }
         )}
       />
-      <div className="text-xs text-slate-500">{getWeekDayString(weekday)}</div>
-      <span className="not-prose absolute -bottom-10 z-40 whitespace-nowrap rounded border border-slate-200 bg-slate-100 p-1 text-center opacity-0 transition-opacity group-hover:z-50 group-hover:opacity-100 group-focus:opacity-100">
-        <p className="my-0 text-xs">{date}</p>
-        <p className="my-0 text-xs">{contributionCount} commits</p>
+      <div className="text-xs text-slate-500 dark:text-slate-400">{getWeekDayString(weekday)}</div>
+      <span className="not-prose absolute -bottom-10 z-40 whitespace-nowrap rounded border border-slate-200 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 p-1 text-center opacity-0 transition-opacity group-hover:z-50 group-hover:opacity-100 group-focus:opacity-100">
+        <p className="my-0 text-xs text-slate-800 dark:text-slate-200">{date}</p>
+        <p className="my-0 text-xs text-slate-800 dark:text-slate-200">{contributionCount} commits</p>
       </span>
     </div>
   );

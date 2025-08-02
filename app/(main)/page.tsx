@@ -3,6 +3,7 @@ import { PostEntryCard } from "./components/PostEntryCard";
 import { getGithubActivity } from "utils/github-graphql";
 import { GithubActivity } from "./components/GithubActivity";
 import { getPostsSummary } from "utils/sanity.client";
+import FloatingParticles from "../components/floating-particles";
 
 export default async function Home() {
   const posts = await getPostsSummary();
@@ -10,6 +11,7 @@ export default async function Home() {
 
   return (
     <div className="flex h-full flex-col">
+      <FloatingParticles />
       <div className="relative m-auto flex flex-col items-center justify-center py-20 text-center text-4xl md:text-6xl">
         <GithubActivity activity={githubActivity} />
         <h1
