@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import { getGravatar } from "utils/getGravatar";
 import classNames from "classnames";
+import { ModeToggle } from "../../components/mode-toggle";
 
 const avatarUrl = getGravatar("kaceycleveland.mail@gmail.com", 200);
 
@@ -92,6 +93,7 @@ export const NavItemMenu = () => {
                 })}
               </ul>
             </nav>
+            <ModeToggle />
           </div>
         </div>
       </div>
