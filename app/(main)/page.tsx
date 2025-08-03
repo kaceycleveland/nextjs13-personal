@@ -8,8 +8,8 @@ export default async function Home() {
 
   return (
     <div className="flex h-full flex-col">
-      <FloatingParticles />
       <div className="relative m-auto flex flex-col items-center justify-center px-4 py-20 text-center text-4xl sm:px-6 md:px-8 md:text-6xl">
+        <FloatingParticles className="absolute left-1/2 -top-full md:-top-1/2" />
         <div className="prose prose-lg prose-slate max-w-2xl text-left dark:prose-invert md:prose-xl prose-h1:mb-1 prose-h2:my-1 prose-p:mt-1">
           <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100 md:text-5xl">
             Hi there! 👋
