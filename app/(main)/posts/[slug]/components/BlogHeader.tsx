@@ -17,7 +17,7 @@ export const BlogHeader = ({
   return (
     <div
       className={
-        "mt-8 mb-4 flex flex-col items-center gap-3 border-b-2 border-dashed border-slate-200 pb-8 text-center md:flex-row md:text-left"
+        "mb-4 mt-8 flex flex-col items-center gap-3 border-b-2 border-dashed border-slate-200 pb-8 text-center md:flex-row md:text-left"
       }
     >
       <div className="lg:w-auto">
@@ -40,7 +40,7 @@ export const BlogHeader = ({
       <div className="flex-1">
         <div className="dark:prose-headings:text-slate-300">
           <h1 className="mb-0 md:max-w-lg">{title}</h1>
-          <h4 className="mt-2 mb-0">{formatDate(created)}</h4>
+          <h4 className="mb-0 mt-2">{formatDate(created)}</h4>
           <h4 className="mt-1">{author}</h4>
         </div>
       </div>

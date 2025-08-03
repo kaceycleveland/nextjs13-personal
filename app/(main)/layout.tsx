@@ -28,7 +28,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <div className={"flex h-screen flex-col justify-between"}>
             <NavItemMenu />
-            <main className="mx-auto w-full flex-1 pt-28">{children}</main>
+            <main className="mx-auto w-full flex-1 pt-28">
+              {children}
+            </main>
             <footer className="bg-slate-200 text-center backdrop-blur-lg backdrop-opacity-50 dark:bg-slate-800 lg:text-left">
               <div className="p-4 text-center text-gray-700 dark:text-slate-300">
                 © 2022 Kacey Cleveland

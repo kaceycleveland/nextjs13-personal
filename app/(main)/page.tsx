@@ -9,20 +9,20 @@ export default async function Home() {
   return (
     <div className="flex h-full flex-col">
       <FloatingParticles />
-      <div className="relative m-auto flex flex-col items-center justify-center py-20 px-4 sm:px-6 md:px-8 text-center text-4xl md:text-6xl">
-        <div className="prose prose-lg md:prose-xl text-left prose-slate dark:prose-invert max-w-2xl prose-h1:mb-1 prose-h2:mb-1 prose-h2:mt-1 prose-p:mt-1">
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-800 dark:text-slate-100">
+      <div className="relative m-auto flex flex-col items-center justify-center px-4 py-20 text-center text-4xl sm:px-6 md:px-8 md:text-6xl">
+        <div className="prose prose-lg prose-slate max-w-2xl text-left dark:prose-invert md:prose-xl prose-h1:mb-1 prose-h2:my-1 prose-p:mt-1">
+          <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100 md:text-5xl">
             Hi there! 👋
           </h1>
-          <h2 className="text-xl md:text-2xl font-semibold text-orange-600 dark:text-orange-400">
-            I'm Kacey
+          <h2 className="text-xl font-semibold text-orange-600 dark:text-orange-400 md:text-2xl">
+            I&apos;m Kacey
           </h2>
-          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400 md:text-lg">
             A software developer passionate about building digital experiences
           </p>
         </div>
       </div>
-      <div className="h-full w-full bg-slate-100 py-4 dark:bg-slate-800">
+      <div className="h-full w-full py-4">
         <div className="prose mx-auto my-4 text-center">
           <h2 className="text-slate-500 dark:text-slate-300">Recent Posts</h2>
         </div>
