@@ -28,13 +28,13 @@ export async function generateMetadata(
   }
 
   const postResult = await getPostBySlug(slug, isEnabled);
-
+  console.log("postResult", postResult);
   if (!postResult.data || !postResult.data.length) {
     notFound();
   }
 
   const post = postResult.data[0];
-  const { title } = post[0];
+  const { title } = post;
 
   const images = slug
     ? [
