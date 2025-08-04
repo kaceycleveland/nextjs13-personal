@@ -29,13 +29,14 @@ export async function generateMetadata(
     };
   }
 
-  const posts = await getPostBySlug(slug);
+  const postResult = await getPostBySlug(slug, isEnabled);
 
-  if (!posts || !posts.length) {
+  if (!postResult.data || !postResult.data.length) {
     notFound();
   }
 
-  const { title } = posts[0];
+  const post = postResult.data[0];
+  const { title } = post[0];
 
   const images = slug
     ? [
@@ -76,29 +77,31 @@ export default async function PostPage(props: PostPageProps) {
   const preview = isEnabled
     ? { token: process.env.SANITY_API_READ_TOKEN }
     : undefined;
-
+  console.log("slug", slug, isEnabled);
   if (!slug) {
     notFound();
   }
 
-  const posts = await getPostBySlug(slug, isEnabled);
+  const postResult = await getPostBySlug(slug, isEnabled);
 
-  if (isEnabled && preview?.token) {
-    console.log("PREVIEW LOADING", preview.token);
-    return (
-      <PreviewProvider token={preview.token}>
-        <PreviewBlogPost posts={posts} />
-      </PreviewProvider>
-    );
-  }
+  console.log("posts", postResult);
+
+  // if (isEnabled && preview?.token) {
+  //   console.log("PREVIEW LOADING", preview.token);
+  //   return (
+  //     <PreviewProvider token={preview.token}>
+  //       <PreviewBlogPost posts={posts} />
+  //     </PreviewProvider>
+  //   );
+  // }
 
   // const post = await getPostBySlug(slug, preview);
 
-  if (!posts || !posts.length) {
+  if (!postResult.data || !postResult.data.length) {
     notFound();
   }
 
-  const post = posts[0];
+  const post = postResult.data[0];
 
   const { title, image, content, creationDate } = post;
 

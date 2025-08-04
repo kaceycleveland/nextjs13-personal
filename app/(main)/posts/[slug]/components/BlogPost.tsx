@@ -1,5 +1,3 @@
-"use client";
-
 import { PortableText } from "@portabletext/react";
 import classNames from "classnames";
 import { BlogHeader } from "./BlogHeader";

@@ -6,34 +6,31 @@ import {
 } from "sanity.types";
 import sanityImageUrlBuilder from "@sanity/image-url";
 import { client } from "../sanity-lib/lib/client";
+import { sanityFetch } from "../sanity-lib/lib/live";
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION;
-
-export const getClient = ({ token }: { token?: string }): SanityClient => {
-  if (token) {
-    return client.withConfig({
-      token,
-      useCdn: false,
-      ignoreBrowserTokenWarning: true,
-    });
-  }
-  return client;
-};
 
 export const imageUrlBuilder = sanityImageUrlBuilder(client);
-export const previewImageUrlBuilder = sanityImageUrlBuilder(
-  getClient({ token: process.env.SANITY_API_READ_TOKEN })
-);
+export const previewImageUrlBuilder = sanityImageUrlBuilder(client);
 
 export const slugQuery = defineQuery(
   groq`*[_type == "post" && slug.current == $slug]{'imageUrl': image.asset->url, ...}`
 );
-export const getPostBySlug = async (slug: string, draft?: boolean) => {
-  return await getClient({
-    token: draft ? process.env.SANITY_API_READ_TOKEN : undefined,
-  }).fetch<SlugQueryResult>(slugQuery, { slug });
+export const getPostBySlug = async (slug: string, isDraft?: boolean) => {
+  // TODO: Add back typing if possible
+  return sanityFetch({ query: slugQuery, params: { slug } });
+  // return await client.fetch<SlugQueryResult>(
+  //   slugQuery,
+  //   { slug },
+  //   isDraft
+  //     ? {
+  //         perspective: "previewDrafts",
+  //         useCdn: false,
+  //         stega: true,
+  //       }
+  //     : undefined
+  // );
 };
 
 const allSlugsQuery = defineQuery(groq`*[_type == "post"]{slug}`);

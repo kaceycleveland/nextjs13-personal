@@ -4,15 +4,17 @@ import "../globals.css";
 import { ReactNode } from "react";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { Analytics } from "@vercel/analytics/react";
-import Script from "next/script";
-import { cookies } from "next/headers";
+
+import { draftMode } from "next/headers";
 import { ThemeProvider } from "../components/theme-provider";
+import { VisualEditing } from "next-sanity";
+import { SanityLive } from "../../sanity-lib/lib/live";
 
 interface RootLayoutProps {
   children?: ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className="scroll-smooth" lang="en" suppressHydrationWarning>
       <Analytics />
@@ -36,6 +38,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </footer>
           </div>
         </ThemeProvider>
+        <SanityLive />
+        {(await draftMode()).isEnabled && <VisualEditing />}
       </body>
     </html>
   );
