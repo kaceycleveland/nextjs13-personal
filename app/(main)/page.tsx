@@ -8,9 +8,11 @@ export default async function Home() {
   const posts = await getPostsSummary();
 
   return (
-    <div className="flex h-full flex-col overflow-x-hidden">
+    <div className="flex h-full flex-col overflow-x-hidden overflow-y-hidden">
+      <div className="absolute inset-0 pt-16 overflow-hidden">
+        <FloatingParticles className="w-full h-full" />
+      </div>
       <div className="relative m-auto flex flex-col items-center justify-center px-4 py-20 text-center text-4xl sm:px-6 md:px-8 md:text-6xl">
-        <FloatingParticles className="absolute left-1/2 -top-full md:-top-1/2" />
         <HeaderSection />
       </div>
       <div className="h-full w-full py-4">

@@ -45,70 +45,49 @@ export default function FloatingParticles({
       canvas.height = window.innerHeight;
     };
 
-    const getTailwindColor = (className: string) => {
-      const div = document.createElement("div");
-      div.className = className;
-      div.style.display = "none";
-      document.body.appendChild(div);
-      const color = getComputedStyle(div).color;
-      document.body.removeChild(div);
-      return color || "rgb(59, 130, 246)"; // fallback to blue
-    };
-
     const colors = [
-      getTailwindColor("text-blue-300/50"),
-      getTailwindColor("text-purple-300/50"),
-      getTailwindColor("text-pink-300/50"),
-      getTailwindColor("text-emerald-300/50"),
-      getTailwindColor("text-amber-300/50"),
-      getTailwindColor("text-rose-300/50"),
-      getTailwindColor("text-indigo-300/50"),
-      getTailwindColor("text-teal-300/50"),
-      getTailwindColor("text-cyan-300/50"),
-      getTailwindColor("text-violet-300/50"),
-      getTailwindColor("text-lime-300/50"),
-      getTailwindColor("text-orange-300/50"),
+      "rgba(147, 197, 253, 0.5)", // blue-300/50
+      "rgba(196, 181, 253, 0.5)", // purple-300/50
+      "rgba(249, 168, 212, 0.5)", // pink-300/50
+      "rgba(110, 231, 183, 0.5)", // emerald-300/50
+      "rgba(252, 211, 77, 0.5)", // amber-300/50
+      "rgba(253, 164, 175, 0.5)", // rose-300/50
+      "rgba(165, 180, 252, 0.5)", // indigo-300/50
+      "rgba(94, 234, 212, 0.5)", // teal-300/50
+      "rgba(103, 232, 249, 0.5)", // cyan-300/50
+      "rgba(196, 181, 253, 0.5)", // violet-300/50
+      "rgba(190, 242, 100, 0.5)", // lime-300/50
+      "rgba(253, 186, 116, 0.5)", // orange-300/50
     ];
 
-    const createParticle = (initialSpawn = false): Particle => {
+    const createParticle = (): Particle => {
       const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const maxRadius = Math.min(canvas.width, canvas.height) * 0.4; // 40% of smaller dimension
+      const centerY = 0; // Fixed to top of page
+      const maxRadius = Math.max(canvas.height * 0.6, 300); // Ensure minimum spawn area
 
       let startX, startY;
 
-      if (initialSpawn) {
-        // For initial spawn, distribute particles across the allowed radius
-        const spawnAngle = Math.random() * Math.PI * 2;
-        const spawnDistance = Math.random() * maxRadius;
-        startX = centerX + Math.cos(spawnAngle) * spawnDistance;
-        startY = centerY + Math.sin(spawnAngle) * spawnDistance;
-      } else {
-        // For respawned particles, start near center
-        const spawnRadius = 30;
-        const spawnAngle = Math.random() * Math.PI * 2;
-        const spawnDistance = Math.random() * spawnRadius;
-        startX = centerX + Math.cos(spawnAngle) * spawnDistance;
-        startY = centerY + Math.sin(spawnAngle) * spawnDistance;
-      }
+      // Distribute particles across the allowed radius (bottom 180 degrees only)
+      const spawnAngle = Math.random() * Math.PI; // 0 to π (bottom half)
+      const spawnDistance = Math.random() * maxRadius;
+      startX = centerX + Math.cos(spawnAngle) * spawnDistance;
+      startY = centerY + Math.sin(spawnAngle) * spawnDistance;
 
-      // Create radial velocity - particles move outward from center
-      const angle = Math.random() * Math.PI * 2;
-      // Scale speed based on viewport size to prevent fast movement on mobile
-      const baseSpeed = Math.random() * 0.3 + 0.1;
-      const viewportScale = Math.min(canvas.width, canvas.height) / 800; // Normalize to 800px reference
-      const speed = baseSpeed * Math.max(0.3, Math.min(1, viewportScale)); // Clamp between 0.3x and 1x speed
+      // Create radial velocity - particles move outward from top center (bottom 180 degrees only)
+      const angle = Math.random() * Math.PI; // 0 to π (downward directions only)
+      // Consistent speed across all viewport sizes for better visibility
+      const baseSpeed = Math.random() * 0.4 + 0.2; // Slightly faster base speed
 
-      const maxOpacity = (Math.random() * 0.5 + 0.3) * 0.85; // Target opacity reduced by 15%
+      const maxOpacity = Math.random() * 0.6 + 0.4; // Higher base opacity for better visibility
 
       return {
         x: startX,
         y: startY,
-        size: Math.random() * 12 + 2,
+        size: Math.random() * 8 + 4, // Slightly larger minimum size
         color: colors[Math.floor(Math.random() * colors.length)],
         opacity: 0, // Start at 0 opacity
-        velocityX: Math.cos(angle) * speed,
-        velocityY: Math.sin(angle) * speed,
+        velocityX: Math.cos(angle) * baseSpeed,
+        velocityY: Math.sin(angle) * baseSpeed,
         fadeDirection: Math.random() > 0.5 ? 1 : -1,
         age: 0,
         maxAge: maxOpacity, // Store target opacity as maxAge for fade-in
@@ -119,9 +98,12 @@ export default function FloatingParticles({
 
     const initParticles = () => {
       particlesRef.current = [];
-      const particleCount = Math.floor((canvas.width * canvas.height) / 8000);
+      const particleCount = Math.max(
+        25,
+        Math.floor((canvas.width * canvas.height) / 12000)
+      ); // Higher density and minimum particles
       for (let i = 0; i < particleCount; i++) {
-        particlesRef.current.push(createParticle(true)); // true for initial spawn distribution
+        particlesRef.current.push(createParticle());
       }
     };
 
@@ -143,25 +125,23 @@ export default function FloatingParticles({
         if (particle.opacity <= 0) {
           // Reset particle for respawn
           const centerX = canvas.width / 2;
-          const centerY = canvas.height / 2;
-          const spawnRadius = 30;
-          const spawnAngle = Math.random() * Math.PI * 2;
+          const centerY = 0; // Fixed to top of page
+          const spawnRadius = 50; // Increased spawn radius
+          const spawnAngle = Math.random() * Math.PI; // 0 to π (bottom half only)
           const spawnDistance = Math.random() * spawnRadius;
 
           particle.x = centerX + Math.cos(spawnAngle) * spawnDistance;
           particle.y = centerY + Math.sin(spawnAngle) * spawnDistance;
 
-          // Give new radial velocity
-          const angle = Math.random() * Math.PI * 2;
-          // Scale speed based on viewport size to prevent fast movement on mobile
-          const baseSpeed = Math.random() * 0.3 + 0.1;
-          const viewportScale = Math.min(canvas.width, canvas.height) / 800; // Normalize to 800px reference
-          const speed = baseSpeed * Math.max(0.3, Math.min(1, viewportScale)); // Clamp between 0.3x and 1x speed
-          particle.velocityX = Math.cos(angle) * speed;
-          particle.velocityY = Math.sin(angle) * speed;
+          // Give new radial velocity (bottom 180 degrees only)
+          const angle = Math.random() * Math.PI; // 0 to π (downward directions only)
+          // Consistent speed across all viewport sizes for better visibility
+          const baseSpeed = Math.random() * 0.4 + 0.2; // Slightly faster base speed
+          particle.velocityX = Math.cos(angle) * baseSpeed;
+          particle.velocityY = Math.sin(angle) * baseSpeed;
 
           // Reset properties for new spawn
-          const maxOpacity = (Math.random() * 0.5 + 0.3) * 0.85; // Target opacity reduced by 15%
+          const maxOpacity = Math.random() * 0.6 + 0.4; // Higher base opacity for better visibility
           particle.opacity = 0;
           particle.maxAge = maxOpacity;
           particle.spawning = true;
@@ -186,10 +166,10 @@ export default function FloatingParticles({
       }
 
       const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const maxRadius = Math.min(canvas.width, canvas.height) * 0.4;
+      const centerY = 0; // Fixed to top of page
+      const maxRadius = Math.max(canvas.height * 0.6, 300); // Ensure minimum spawn area
 
-      // Calculate distance from center
+      // Calculate distance from top center
       const distanceFromCenter = Math.sqrt(
         Math.pow(particle.x - centerX, 2) + Math.pow(particle.y - centerY, 2)
       );
@@ -199,8 +179,8 @@ export default function FloatingParticles({
         distanceFromCenter > maxRadius ||
         particle.x < -20 ||
         particle.x > canvas.width + 20 ||
-        particle.y < -20 ||
-        particle.y > canvas.height + 20
+        particle.y > canvas.height + 20 || // Only check bottom boundary
+        particle.y < -20 // Keep top boundary check for edge cases
       ) {
         particle.despawning = true;
       }
@@ -210,18 +190,57 @@ export default function FloatingParticles({
       ctx.save();
       ctx.globalAlpha = particle.opacity;
       ctx.fillStyle = particle.color;
-      const blurAmount = Math.max(2, particle.size * 0.5 * 1.15); // Increase blur by 15%
-      ctx.filter = `blur(${blurAmount}px)`;
+
+      // Create a soft glow effect with multiple draws instead of blur filter
+      const glowSize = particle.size * 2;
+      const gradient = ctx.createRadialGradient(
+        particle.x,
+        particle.y,
+        0,
+        particle.x,
+        particle.y,
+        glowSize
+      );
+      gradient.addColorStop(0, particle.color);
+      gradient.addColorStop(0.4, particle.color.replace("0.5)", "0.2)"));
+      gradient.addColorStop(1, particle.color.replace("0.5)", "0)"));
+
+      ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      ctx.arc(particle.x, particle.y, glowSize, 0, Math.PI * 2);
       ctx.fill();
+
+      // Draw solid center
+      ctx.fillStyle = particle.color;
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.size * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+
       ctx.restore();
     };
 
-    const animateParticles = () => {
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Limit to 30 FPS for better performance
+    const frameInterval = 1000 / targetFPS;
+
+    const animateParticles = (currentTime: number) => {
+      if (currentTime - lastFrameTime < frameInterval) {
+        animationRef.current = requestAnimationFrame(animateParticles);
+        return;
+      }
+
+      lastFrameTime = currentTime;
+
+      const opacity = canvasOpacity.get();
+      // Skip rendering if opacity is very low to save resources
+      if (opacity < 0.01) {
+        animationRef.current = requestAnimationFrame(animateParticles);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
-      ctx.globalAlpha = canvasOpacity.get();
+      ctx.globalAlpha = opacity;
 
       particlesRef.current.forEach((particle) => {
         updateParticle(particle);
@@ -234,7 +253,7 @@ export default function FloatingParticles({
 
     resizeCanvas();
     initParticles();
-    animateParticles();
+    animateParticles(0);
 
     // Canvas opacity is now controlled by scroll position
 
@@ -253,7 +272,6 @@ export default function FloatingParticles({
     };
   }, []);
 
-  console.log("transformY", canvasY);
   return (
     <motion.canvas
       ref={canvasRef}
@@ -262,7 +280,6 @@ export default function FloatingParticles({
         background: "transparent",
         opacity: canvasOpacity,
         y: canvasY,
-        x: "-50%",
         scale: canvasScale,
       }}
     />
