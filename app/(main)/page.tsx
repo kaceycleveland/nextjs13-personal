@@ -9,7 +9,7 @@ export default async function Home() {
 
   return (
     <div className="flex h-full flex-col overflow-x-hidden overflow-y-hidden">
-      <div className="absolute inset-0 pt-16 overflow-hidden">
+      <div className="absolute inset-0 pt-16 overflow-hidden pointer-events-none">
         <FloatingParticles className="w-full h-full" />
       </div>
       <div className="relative m-auto flex flex-col items-center justify-center px-4 py-20 text-center text-4xl sm:px-6 md:px-8 md:text-6xl">
