@@ -4,12 +4,15 @@ import { formatDate } from "utils/utils";
 
 export const runtime = "edge";
 
-export async function GET(request: Request, props: { params: Promise<{ slug: string }> }) {
+export async function GET(
+  request: Request,
+  props: { params: Promise<{ slug: string }> }
+) {
   const params = await props.params;
   const slug = params.slug;
   const post = await getPostBySlug(slug!);
 
-  const { title, tags, description, image, creationDate } = post[0];
+  const { title, tags, description, image, creationDate } = post.data[0];
 
   return new ImageResponse(
     (
@@ -43,7 +46,7 @@ export async function GET(request: Request, props: { params: Promise<{ slug: str
               <div tw="text-xl mt-5 w-full">{formatDate(creationDate)}</div>
               <div tw="text-2xl mt-5 w-full">{description}</div>
               <div tw="flex mt-5">
-                {tags?.map((tag, key) => (
+                {tags?.map((tag: string, key: number) => (
                   <div key={key} tw="text-white px-2 py-1 mr-2 bg-slate-500">
                     {tag}
                   </div>
