@@ -13,7 +13,7 @@ export const PostEntryCard = (props: AllPostsSummaryQueryResult[0]) => {
   return (
     <div className="group prose w-full max-w-none text-left prose-h3:my-0 prose-p:my-1 prose-a:no-underline md:prose-h3:my-0 md:prose-p:my-1">
       <Link href={`/posts/${slug?.current}`}>
-        <div className="grid w-full grid-cols-12 place-content-center gap-2 gap-x-4 gap-y-0 rounded-lg border border-gray-200 bg-white/20 p-4 shadow-none duration-300 ease-in-out hover:-translate-y-1 hover:border-gray-400 hover:bg-white/40 hover:shadow-lg hover:backdrop-blur-sm dark:border-gray-700 dark:bg-gray-900/20 dark:hover:border-gray-600 dark:hover:bg-gray-900/40">
+        <div className="grid w-full grid-cols-12 place-content-center gap-2 gap-x-4 gap-y-0 rounded-lg border border-gray-300 bg-gray-50/60 p-4 shadow-none duration-300 ease-in-out hover:-translate-y-1 hover:border-gray-400 hover:bg-white/80 hover:shadow-lg hover:backdrop-blur-sm dark:border-gray-700 dark:bg-gray-900/20 dark:hover:border-gray-600 dark:hover:bg-gray-900/40">
           <div className="col-span-3 row-span-2 flex sm:col-span-2">
             {image && (
               <Image

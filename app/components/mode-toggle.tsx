@@ -14,7 +14,7 @@ export function ModeToggle() {
 
   if (!mounted) {
     return (
-      <button className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-transparent hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800">
+      <button className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-400 bg-transparent hover:bg-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
         <span className="sr-only">Toggle theme</span>
         <div className="h-4 w-4" />
       </button>
@@ -24,7 +24,7 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-transparent transition-colors hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-800"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-400 bg-transparent transition-colors hover:bg-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
     >
       <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />

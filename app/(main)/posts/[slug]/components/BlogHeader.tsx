@@ -23,7 +23,7 @@ export const BlogHeader = ({
       <div className="lg:w-auto">
         <div
           className={
-            "not-prose flex justify-center rounded-lg bg-slate-100 p-2 dark:bg-slate-700"
+            "not-prose flex justify-center rounded-lg bg-gray-200 p-2 dark:bg-slate-700"
           }
         >
           {imgUrl && (
