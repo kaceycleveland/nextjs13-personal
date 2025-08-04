@@ -7,8 +7,6 @@ import {
   imageUrlBuilder,
 } from "utils/sanity.client";
 import { BlogPost } from "./components/BlogPost";
-import { PreviewBlogPost } from "./components/PreviewBlogPost";
-import PreviewProvider from "app/(main)/components/PreviewProvider";
 
 export interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -70,33 +68,13 @@ export async function generateStaticParams() {
 
 export default async function PostPage(props: PostPageProps) {
   const params = await props.params;
-
   const { slug } = params;
-
   const { isEnabled } = await draftMode();
-  const preview = isEnabled
-    ? { token: process.env.SANITY_API_READ_TOKEN }
-    : undefined;
-  console.log("slug", slug, isEnabled);
   if (!slug) {
     notFound();
   }
 
   const postResult = await getPostBySlug(slug, isEnabled);
-
-  console.log("posts", postResult);
-
-  // if (isEnabled && preview?.token) {
-  //   console.log("PREVIEW LOADING", preview.token);
-  //   return (
-  //     <PreviewProvider token={preview.token}>
-  //       <PreviewBlogPost posts={posts} />
-  //     </PreviewProvider>
-  //   );
-  // }
-
-  // const post = await getPostBySlug(slug, preview);
-
   if (!postResult.data || !postResult.data.length) {
     notFound();
   }
